@@ -1,4 +1,4 @@
-package MovilesRepaso_Ejercicio1;
+package MovilesRepaso.Ejercicio1;
 
 public class Producto {
 

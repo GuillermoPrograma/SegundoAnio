@@ -1,6 +1,7 @@
 package AccesoADatos;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,7 +25,7 @@ public class gestion_Alumnos {
 		listado.add(a3);
 		listado.add(a4);
 		listado.add(a5);
-		while (bucle == false) {
+		while (bucle == true) {
 			System.out.println(
 					"1-Mostrar Alumnos \n 2.Añadir Alumno \n  3.Ordenar por Nia \n 4. Ordenar por otras opciones \n 5.Salir");
 			input = entrada.nextInt();
@@ -34,7 +35,7 @@ public class gestion_Alumnos {
 					System.out.println(a.toString());
 				System.out.println();
 				break;
-			case 2: 
+			case 2:
 				System.out.println("Nia del nuevo alumno");
 				int niaNuevo = entrada.nextInt();
 				System.out.println("Nombre del nuevo alumno");
@@ -42,7 +43,7 @@ public class gestion_Alumnos {
 				System.out.println("Apellido del nuevo alumno");
 				String apellidoNuevo = entrada.next();
 				System.out.println("Genero del Nuevo alumno (M/F/N)");
-				char generoNuevo  = entrada.next().charAt(0);
+				char generoNuevo = entrada.next().charAt(0);
 				System.out.println("Fecha Nac dd/MM/yyyy");
 				String fechaNuevo = entrada.next();
 				System.out.println("Ciclo del nuevo alumno");
@@ -51,25 +52,38 @@ public class gestion_Alumnos {
 				String curso = entrada.next();
 				System.out.println("Grupo del nuevo alumno");
 				String grupo = entrada.next();
-				listado.add(new alumno(niaNuevo,nombreNuevo,apellidoNuevo,generoNuevo,fechaNuevo,ciclo,curso,grupo));
+				listado.add(
+						new alumno(niaNuevo, nombreNuevo, apellidoNuevo, generoNuevo, fechaNuevo, ciclo, curso, grupo));
 				break;
 			case 3:
 				listado.sort(new alumno.CompararPorNia());
 				for (alumno a : listado)
 					System.out.println(a.toString());
-			break;
+				break;
 			case 4:
-				
-			break;
-			
+				System.out.println("6-Ordenar por fecha \n 7-Ordenar por Ciclo");
+				int input2 = entrada.nextInt();
+				switch (input2) {
+				case 6:
+					listado.sort(new alumno.CompararPorFecha());
+					for (alumno a : listado)
+						System.out.println(a.toString());
+					break;
+				case 7:
+					listado.sort(new alumno.CompararPorCiclo());
+					for (alumno a : listado)
+						System.out.println(a.toString());
+					break;
+				}
+				break;
+
 			case 5:
-			System.out.println("Saliendo del sistema");
-			bucle = false;
+				System.out.println("Saliendo del sistema");
+				bucle = false;
 			}
 
 		}
 
-		
 	}
 
 }

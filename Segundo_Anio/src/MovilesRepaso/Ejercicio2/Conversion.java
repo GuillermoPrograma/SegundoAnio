@@ -1,4 +1,4 @@
-package MovilesRepaso_Ejercicio2;
+package MovilesRepaso.Ejercicio2;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

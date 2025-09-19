@@ -89,6 +89,19 @@ public class alumno {
 			return Integer.compare(a1.nia, a2.nia);
 		}
 	}
+	public static class CompararPorCiclo implements Comparator<alumno> {
+		@Override
+		public int compare(alumno a1, alumno a2) {
+			return a1.getCiclo().compareTo(a2.getCiclo());
+		}
+	}
+	
+	public static class CompararPorFecha implements Comparator<alumno> {
+		@Override
+		public int compare(alumno a1, alumno a2) {
+			return a1.getFecha().compareTo(a2.getFecha());
+		}
+	}
 
 	public int getNia() {
 		return nia;
