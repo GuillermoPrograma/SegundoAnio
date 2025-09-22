@@ -1,7 +1,6 @@
-package AccesoADatos;
+package AccesoADatos.Ejercicio1;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -83,7 +82,7 @@ public class gestion_Alumnos {
 			}
 
 		}
-
+		entrada.close();
 	}
 
 }
