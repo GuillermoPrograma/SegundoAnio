@@ -1,10 +1,16 @@
 package MovilesRepaso.Ejercicio3;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GestorTareas {
 
+	
+	File archivo = new File ("ListaTareas.txt");
 	private List<Tarea> tareas = new ArrayList<>();
 
 	public void AgregarTarea(Tarea t1) {
@@ -51,6 +57,19 @@ public class GestorTareas {
 		}
 		
 		
+	}
+	public void ImprimirInformacion() 
+	{
+		try(FileWriter fw = new FileWriter(archivo); PrintWriter pw = new PrintWriter (fw))
+		{
+			for(Tarea t: tareas)
+			pw.println(t.toString());
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
