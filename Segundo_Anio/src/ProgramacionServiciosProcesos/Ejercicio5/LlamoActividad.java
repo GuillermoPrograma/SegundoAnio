@@ -9,8 +9,8 @@ public class LlamoActividad {
 	public static void main(String[] args) throws IOException {
 		File d = new File(".");
 		// proceso a ejecutar es Ejemplo2
-		Process ps = new ProcessBuilder("java", "Divisores").directory(d).start();// java es el comando para ejecutar un class
-		// establecemos el directorio donde está el ejecutable
+		Process ps = new ProcessBuilder("java","ProgramacionServiciosProcesos.Ejercicio5.Divisores", 
+				args[0]).directory(d).start();// java es el comando para ejecutar un class
 
 		// obtener la salida
 		try {
