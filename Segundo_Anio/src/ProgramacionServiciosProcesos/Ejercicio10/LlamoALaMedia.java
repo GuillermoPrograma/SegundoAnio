@@ -17,22 +17,24 @@ public class LlamoALaMedia {
 	try(PrintWriter pw = new PrintWriter (p.getOutputStream()))
 	{
 		int numElegido;
-		double contadorSuma = 0;
+		int contadorSuma = 0;
 		int contador = 0;
 		while((numElegido =entrada.nextInt()) != 0) 
 		{
 		contador ++;
 		contadorSuma += numElegido;
+		System.out.println(contador);
 		}
-		
+		entrada.close();
 		pw.println(contador);
 		pw.println(contadorSuma);
-		
+		pw.flush();
+		pw.close(); //SINO NO PASA
 		InputStream is = p.getInputStream();
 		int c;
 		while ((c = is.read()) != -1)
 		{
-			System.out.println((char)c);
+			System.out.print((char)c);
 		} 
 	}
 	catch(Exception e) 

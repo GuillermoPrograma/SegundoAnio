@@ -9,14 +9,13 @@ public class MediaNumeros {
 		
 		Scanner entrada = new Scanner(System.in);
 		
-		double contador = entrada.nextDouble();
-		double suma = entrada.nextDouble();
+		int contador = entrada.nextInt();
+		int suma = entrada.nextInt();
 		
 		
 		System.out.println("La media es :" + suma / contador);
 		
-		
-		
+		entrada.close();		
 	}
 	
 	
