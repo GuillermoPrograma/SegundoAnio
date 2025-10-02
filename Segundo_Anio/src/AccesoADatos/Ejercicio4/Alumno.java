@@ -111,13 +111,6 @@ public class Alumno {
 		this.apellidos = apellidos;
 	}
 
-	public String getFecha_nac() {
-		return fecha_nac;
-	}
-
-	public void setFecha_nac(String fecha_nac) {
-		this.fecha_nac = fecha_nac;
-	}
 
 	public String getCiclo() {
 		return ciclo;
@@ -130,6 +123,13 @@ public class Alumno {
 	public String getCurso() {
 		return curso;
 	}
+
+	public String getFechaString() {
+		
+		return fecha.format(formato);
+	}
+
+	
 
 	public void setCurso(String curso) {
 		this.curso = curso;
