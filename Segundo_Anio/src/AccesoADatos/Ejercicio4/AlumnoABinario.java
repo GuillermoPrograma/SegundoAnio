@@ -61,47 +61,5 @@ public class AlumnoABinario {
 			 e.printStackTrace();
 		}
 		
-		FileInputStream ficheroEntrada = new FileInputStream(f);
-		
-		DataInputStream entradaDatos = null;
-		
-		try {
-			entradaDatos = new DataInputStream(ficheroEntrada);
-			int nia;
-			String nombreAl;
-			String apellidos;
-			char genero;
-			String fecha_nac;
-			String ciclo;
-			String curso;
-			String grupo;
-			while(entradaDatos.available() > 0) 
-			{
-				nia = entradaDatos.readInt();
-				nombreAl = entradaDatos.readUTF();
-				apellidos = entradaDatos.readUTF();
-				genero = entradaDatos.readChar();
-				fecha_nac = entradaDatos.readUTF();
-				ciclo = entradaDatos.readUTF();
-				curso = entradaDatos.readUTF();
-				grupo = entradaDatos.readUTF();
-				System.out.println("NIA : " + nia + "\n" 
-				+ "nombreAl : " + nombreAl + "\n" +
-				"apellidos : " + apellidos + "\n" +
-				"genero : " + genero + "\n" +                                    
-				"fecha Nacimiento :" + fecha_nac + "\n" +
-				 "Ciclo : " + ciclo + "\n" + 
-				"Curso : " + curso + "\n" + 
-				 "Grupo : " + grupo);
-				
-				
-			}
-			
-			ficheroEntrada.close();
-			
-		} catch (Exception e) {
-			System.out.println("Fallo en el archivo");
-		}
-
 	}
 }
