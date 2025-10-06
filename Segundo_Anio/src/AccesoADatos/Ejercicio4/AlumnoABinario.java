@@ -8,12 +8,17 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Scanner;
 
-import AccesoADatos.Ejercicio1.alumno;
-
 public class AlumnoABinario {
 
 	public static void main(String[] args) throws FileNotFoundException {
 
+		/**
+		*@author Guillermo
+		*
+		*Version 1.0
+		*/
+		
+		
 		Scanner entrada = new Scanner(System.in);
 
 		Alumno a1 = new Alumno(234567, "Guillermo", "García", 'M', "27/11/2001", "Segundo", "Curso", "A");
@@ -24,9 +29,8 @@ public class AlumnoABinario {
 
 		Alumno[] alumnos = { a1, a2, a3, a4, a5 };
 		System.out.println("Nombre del Archivo Binario: sin la extension ");
-		String nombre = entrada.next();
+		String nombre = entrada.nextLine();
 		System.out.println("Dirección donde vaya el archivo : ");
-		entrada.nextLine();
 		String direccion = entrada.nextLine();
 
 		File f = new File(direccion +"\\" + nombre + ".dat"); // Puede fallar
@@ -84,7 +88,7 @@ public class AlumnoABinario {
 				System.out.println("NIA : " + nia + "\n" 
 				+ "nombreAl : " + nombreAl + "\n" +
 				"apellidos : " + apellidos + "\n" +
-				"genero : " + genero + "\n" + 
+				"genero : " + genero + "\n" +                                    
 				"fecha Nacimiento :" + fecha_nac + "\n" +
 				 "Ciclo : " + ciclo + "\n" + 
 				"Curso : " + curso + "\n" + 
@@ -93,6 +97,7 @@ public class AlumnoABinario {
 				
 			}
 			
+			ficheroEntrada.close();
 			
 		} catch (Exception e) {
 			System.out.println("Fallo en el archivo");
