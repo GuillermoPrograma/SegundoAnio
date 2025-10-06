@@ -1,9 +1,10 @@
 package AccesoADatos.Ejercicio5;
 
-import java.io.DataInputStream;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.ObjectInputStream;
 import java.util.Scanner;
 
 public class LeoBinario {
@@ -18,39 +19,23 @@ public class LeoBinario {
 
 		File f = new File(direccion + "\\" + nombre + ".dat");
 
-		FileInputStream ficheroEntrada = new FileInputStream(f);
+		try (ObjectInputStream entradaDatos = new ObjectInputStream(new FileInputStream(f))) {
 
-		DataInputStream entradaDatos = null;
+			while (true) // Bucle infinito para que salga por el catch, no sé si hay otrta manera
+			{
+				try {
+					AlumnoEj5 a = (AlumnoEj5) entradaDatos.readObject();
 
-		try {
-			entradaDatos = new DataInputStream(ficheroEntrada);
-			int nia;
-			String nombreAl;
-			String apellidos;
-			char genero;
-			String fecha_nac;
-			String ciclo;
-			String curso;
-			String grupo;
-			while (entradaDatos.available() > 0) {
-				nia = entradaDatos.readInt();
-				nombreAl = entradaDatos.readUTF();
-				apellidos = entradaDatos.readUTF();
-				genero = entradaDatos.readChar();
-				fecha_nac = entradaDatos.readUTF();
-				ciclo = entradaDatos.readUTF();
-				curso = entradaDatos.readUTF();
-				grupo = entradaDatos.readUTF();
-				System.out.println("NIA : " + nia + "\n" + "nombreAl : " + nombreAl + "\n" + "apellidos : " + apellidos
-						+ "\n" + "genero : " + genero + "\n" + "fecha Nacimiento :" + fecha_nac + "\n" + "Ciclo : "
-						+ ciclo + "\n" + "Curso : " + curso + "\n" + "Grupo : " + grupo);
+					System.out.println(a.toString());
+				}
 
+				catch (EOFException eof) {
+					// SALE POR AQUI
+					break;
+				}
 			}
-			entrada.close();
-			ficheroEntrada.close();
-
 		} catch (Exception e) {
-			System.out.println("Fallo en el archivo");
+			e.printStackTrace();
 		}
 
 	}

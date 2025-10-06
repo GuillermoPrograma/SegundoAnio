@@ -6,17 +6,17 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-public class Alumno implements Serializable {
+public class AlumnoEj5 implements Serializable {
 
 	private static final long serialVersionUID = 123L;
-	
+
 	private int nia;
 
 	private char genero;
 
 	private String nombre, apellidos, ciclo, curso, grupo;
 
-	private Scanner entrada = new Scanner(System.in);
+	private transient Scanner entrada = new Scanner(System.in); //EL TRANSIENT ES PARA QUE NO SE GUARDE EN LA SERIALIZACIÓN
 
 	private boolean generoCorrecto = false;
 
@@ -24,8 +24,8 @@ public class Alumno implements Serializable {
 
 	private LocalDate fecha;
 
-	public Alumno(int nia, String nombre, String apellidos, char genero, String fecha_Nac, String ciclo, String curso,
-			String grupo)
+	public AlumnoEj5(int nia, String nombre, String apellidos, char genero, String fecha_Nac, String ciclo,
+			String curso, String grupo)
 
 	{
 
