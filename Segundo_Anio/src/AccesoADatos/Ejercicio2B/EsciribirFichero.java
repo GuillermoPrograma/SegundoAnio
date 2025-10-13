@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class EsciribirFichero {
 
 	public static void main(String[] args) {
-		boolean bucle = true;
+		boolean bucle = true; //lo dejo en true
 		Scanner entrada = new Scanner(System.in);
 		File archivo = new File("Prueba.txt");
 		try (FileWriter fw = new FileWriter(archivo); PrintWriter bw = new PrintWriter(fw)) {
