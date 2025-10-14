@@ -5,15 +5,26 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 
+/**
+ * Clase {@code Llamador} llama al proceso {@code SumoNum} pasandole dos numeros
+ * @author Guille 
+ * @version 1.0
+ */
 public class Llamador {
 
+	/**
+	 * 
+	 * @param args, se manda por codigo de comando
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException {
 
 		if (args.length < 2) {
 			System.err.println("Tienen que ser dos números");
 			return;
 		}
-		File f = new File(".");
+		
+		File f = new File("."); //Como son variables locales no se ponen en el javadoc
 
 		Process p = new ProcessBuilder("Java", "ProgramacionServiciosProcesos.Entrega1.SumoNum").directory(f).start();
 
@@ -25,7 +36,7 @@ public class Llamador {
 				pw.println(Integer.parseInt(args[0]));
 				pw.println(Integer.parseInt(args[1]));
 			} catch (Exception e) {
-				System.out.println("Has metido un codigo de texto");
+				System.err.println("Has metido un codigo de texto");
 			}
 		}
 

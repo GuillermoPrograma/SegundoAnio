@@ -1,0 +1,3 @@
+El programa esta compuesto por dos clases: LLamador y SumoNum.
+La clase Llamador se encarga de crear y ejecutar el proceso hijo, mandandole dos números que introduce el usario a traves de los comandos del sistema.
+La clase SumoNum recibe esos números a traves un Scanner, realiza la suma y devuelve el resultado al padre, el cual lo enseña por panrtalla.
