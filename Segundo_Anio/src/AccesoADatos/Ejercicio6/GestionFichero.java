@@ -21,36 +21,54 @@ public class GestionFichero {
 		String ruta = entrada.nextLine();
 		try {
 			archivo = new File(ruta + "\\" + nombre + ".dat");
+			AñadirAlumno(entrada);
 		} catch (Exception e) {
 			System.out.println("Ruta inválida, volviendo al menú");
 		}
-		AñadirAlumno(entrada);
+
 	}
 
 	public void AñadirAlumno(Scanner entrada) throws IOException {
 		System.out.println("Nia del nuevo alumno");
-		int niaNuevo = entrada.nextInt();
+		int niaNuevo = Integer.parseInt(entrada.nextLine()); //Cuidado el buffer que está dando problemas
 		System.out.println("Nombre del nuevo alumno");
-		String nombreNuevo = entrada.next();
+		String nombreNuevo = entrada.nextLine().trim();
 		System.out.println("Apellido del nuevo alumno");
-		String apellidoNuevo = entrada.next();
+		String apellidoNuevo = entrada.nextLine().trim();
 		System.out.println("Genero del Nuevo alumno (M/F/N)");
-		char generoNuevo = entrada.next().charAt(0);
+		char generoNuevo = entrada.nextLine().trim().toUpperCase().charAt(0);
 		System.out.println("Fecha Nac dd/MM/yyyy");
-		String fechaNuevo = entrada.next();
+		String fechaNuevo = entrada.nextLine().trim();
 		System.out.println("Ciclo del nuevo alumno");
-		String ciclo = entrada.next();
+		String ciclo = entrada.nextLine().trim();
 		System.out.println("Curso del nuevo alumno");
-		String curso = entrada.next();
+		String curso = entrada.nextLine().trim();
 		System.out.println("Grupo del nuevo alumno");
-		String grupo = entrada.next();
+		String grupo = entrada.nextLine().trim();
 
 		PasoAlumnoABinario(
-				new AlumnoEj5(niaNuevo, nombreNuevo, apellidoNuevo, generoNuevo, fechaNuevo, ciclo, curso, grupo));
+				new AlumnoEj6(niaNuevo, nombreNuevo, apellidoNuevo, generoNuevo, fechaNuevo, ciclo, curso, grupo));
 
 	}
 
-	public void PasoAlumnoABinario(AlumnoEj5 alumno) throws IOException {
+	public void CargarFichero(Scanner entrada) {
+		System.out.println("Dame la ruta del fichero");
+		String ruta = entrada.nextLine();
+		System.out.println("Dime el nombre del fichero");
+		String nombre = entrada.nextLine();
+		try {
+			archivo = new File(ruta + "\\" + nombre + ".dat"); //Lo Instancio en memoria pero no se crea realmente hasta que no escriba sobre él
+			
+			if(archivo.exists() && archivo.isFile())
+				System.out.println("Archivo encontrado"); //Si los dos estan a true es que hay un archivo ya con objetos
+			else
+				System.out.println("Archivo no encontrado, tienes que crearlo o buscar otro");
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+	}
+
+	public void PasoAlumnoABinario(AlumnoEj6 alumno) throws IOException {
 		FileOutputStream salida = new FileOutputStream(archivo);
 		ObjectOutputStream salidaDatos = new ObjectOutputStream(salida);
 
@@ -60,27 +78,36 @@ public class GestionFichero {
 	}
 
 	public void CargarAlumno(Scanner entrada) throws IOException {
+		if(archivo != null)
 		AñadirAlumno(entrada);
+		else
+			System.err.println("Fichero no está Inicializado, volviendo al Menu");
 	}
 
 	public void MostrarAlumnos() {
-		try (ObjectInputStream entradaDatos = new ObjectInputStream(new FileInputStream(archivo))) {
-			while (true) // Bucle infinito para que salga por el catch, no sé si hay otrta manera
-			{
-				try {
-					AlumnoEj5 a = (AlumnoEj5) entradaDatos.readObject();
+		if(archivo != null) 
+		{
+			try (ObjectInputStream entradaDatos = new ObjectInputStream(new FileInputStream(archivo))) {
+				while (true) // Bucle infinito para que salga por el catch, no sé si hay otra manera
+				{
+					try {
+						AlumnoEj6 a = (AlumnoEj6) entradaDatos.readObject();
 
-					System.out.println(a.toString());
-				}
+						System.out.println(a.toString());
+					}
 
-				catch (EOFException eof) {
-					// SALE POR AQUI
-					break;
+					catch (EOFException eof) {
+						// SALE POR AQUI
+						break;
+					}
 				}
+			} catch (Exception e) {
+				System.err.println("No se encuentran alumnos");
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
+		else
+			System.err.println("No se pueden mostrar alumnos porque no hay archivo correcto seleccionado");
+		
 
 	}
 
