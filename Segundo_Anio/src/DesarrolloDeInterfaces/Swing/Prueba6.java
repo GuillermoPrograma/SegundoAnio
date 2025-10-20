@@ -13,7 +13,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class Prueba6 extends JFrame implements ChangeListener, ActionListener {
+public class Prueba6 extends JFrame implements ChangeListener, ActionListener { //Uno espera a que cambie de estado el otro es cuando haces un click
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
