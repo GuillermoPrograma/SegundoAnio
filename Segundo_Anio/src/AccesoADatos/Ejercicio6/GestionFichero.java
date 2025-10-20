@@ -12,7 +12,7 @@ import AccesoADatos.Ejercicio5.AlumnoEj5;
 
 public class GestionFichero {
 
-	File archivo;
+	private File archivo;
 
 	public void Generofichero(Scanner entrada) throws IOException {
 		System.out.println("Dime el nombre del archivo que quieres creas :");
