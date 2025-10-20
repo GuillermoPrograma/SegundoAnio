@@ -53,7 +53,7 @@ public class Ejercicio1 extends JFrame implements ItemListener, ChangeListener, 
 	private JButton salir;
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			public void run() {
+			public void run() {//ss
 				try {
 					Ejercicio1 frame = new Ejercicio1();
 					frame.setVisible(true);
