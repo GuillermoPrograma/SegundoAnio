@@ -16,8 +16,9 @@ public class Llamador {
 	 * 
 	 * @param args, se manda por codigo de comando
 	 * @throws IOException
+	 * @throws InterruptedException 
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InterruptedException {
 
 		if (args.length < 2) {
 			System.err.println("Tienen que ser dos números");
@@ -26,7 +27,7 @@ public class Llamador {
 		
 		File f = new File("."); //Como son variables locales no se ponen en el javadoc
 
-		Process p = new ProcessBuilder("Java", "ProgramacionServiciosProcesos.Entrega1.SumoNum").directory(f).start();
+		Process p = new ProcessBuilder("java", "ProgramacionServiciosProcesos.Entrega1.SumoNum").directory(f).start();
 
 		try (PrintWriter pw = new PrintWriter(p.getOutputStream(), true)) // Si lo hago de esta manera tiene que haber
 																			// un escaner en la otra clase por el
@@ -39,7 +40,7 @@ public class Llamador {
 				System.err.println("Has metido un codigo de texto");
 			}
 		}
-
+		p.waitFor();
 		try (InputStream is = p.getInputStream()) {
 			int c;
 			while ((c = is.read()) != -1) {
