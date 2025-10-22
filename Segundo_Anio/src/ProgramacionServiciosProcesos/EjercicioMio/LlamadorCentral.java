@@ -46,7 +46,7 @@ public class LlamadorCentral {
 				int num2 = Integer.parseInt(args[3]);
 				pwMult.println(num2);
 			} catch (Exception e) {
-				System.out.println("Tienen que ser números");
+				System.out.println("Tienen que ser números ");
 			}
 		}
 		procesoMultip.waitFor();
