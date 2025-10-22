@@ -30,7 +30,7 @@ public class LlamadorCentral {
 				int num2 = Integer.parseInt(args[1]);
 				pwSum.println(num2);
 			} catch (Exception e) {
-				System.out.println("Tienen que ser números");
+				System.out.println("Tienen que ser números ");
 			}
 		}
 		procesoSuma.waitFor();
