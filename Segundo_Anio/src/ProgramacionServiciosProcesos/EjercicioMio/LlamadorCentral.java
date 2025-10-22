@@ -34,7 +34,7 @@ public class LlamadorCentral {
 			}
 		}
 		procesoSuma.waitFor();
-		try (BufferedReader brSuma = new BufferedReader(new InputStreamReader(procesoSuma.getInputStream()))) {
+		try (BufferedReader brSuma= new BufferedReader(new InputStreamReader(procesoSuma.getInputStream()))) {
 
 			numeroSuma = Integer.parseInt(brSuma.readLine());
 		}
