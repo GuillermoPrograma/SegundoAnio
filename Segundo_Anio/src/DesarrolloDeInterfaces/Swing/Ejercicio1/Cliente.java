@@ -1,13 +1,15 @@
 package DesarrolloDeInterfaces.Swing.Ejercicio1;
 
+import java.util.List;
+
 public class Cliente {
 private String nombre;
 private Localidad localidad;
 private String procesador;
 private String memoria;
 private String discoDuro;
-private String opciones[];
-Cliente(String nombre, Localidad localidad, String procesador, String memoria, String discoDuro, String opciones[])
+private List<String> opciones;
+Cliente(String nombre, Localidad localidad, String procesador, String memoria, String discoDuro, List<String> opciones)
 {
 	this.nombre = nombre;
 	this.localidad = localidad;
@@ -46,11 +48,17 @@ public String getDiscoDuro() {
 public void setDiscoDuro(String discoDuro) {
 	this.discoDuro = discoDuro;
 }
-public String[] getOpciones() {
+public List<String> getOpciones() {
 	return opciones;
 }
-public void setOpciones(String[] opciones) {
+public void setOpciones(List<String> opciones) {
 	this.opciones = opciones;
 }
+@Override
+public String toString() {
+	return "Cliente [nombre=" + nombre + ", localidad=" + localidad + ", procesador=" + procesador + ", memoria="
+			+ memoria + ", discoDuro=" + discoDuro + ", opciones=" + opciones + "]";
+}
+
 
 }
