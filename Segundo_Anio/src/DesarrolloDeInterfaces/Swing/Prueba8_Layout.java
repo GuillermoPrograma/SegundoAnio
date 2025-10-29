@@ -38,7 +38,7 @@ public class Prueba8_Layout extends JFrame {
 					v.getContentPane().add(checkbox);
 					v.getContentPane().add(etiqueta);
 					
-					v.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+					v.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //s
 					
 					
 					v.pack();

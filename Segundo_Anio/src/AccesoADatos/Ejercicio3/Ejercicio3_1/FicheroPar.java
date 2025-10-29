@@ -9,34 +9,31 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class FicheroPar {
-public static void main(String[] args) {
-	
-	Scanner entrada = new Scanner(System.in);
-	
-	System.out.println("Dame el Nombre del fichero que quieres usar :");
-	try (FileReader pr = new FileReader(entrada.next()); BufferedReader br = new BufferedReader(pr)) {
-		int contador = 0;
-		String linea;
-		System.out.println("Donde lo guardamos");
-		try (FileWriter fw = new FileWriter(entrada.next()); PrintWriter bw = new PrintWriter(fw)) 
-		{
+	public static void main(String[] args) {
+
+		Scanner entrada = new Scanner(System.in);
+
+		System.out.println("Dame el Nombre del fichero que quieres usar :");
+		try (FileReader pr = new FileReader(entrada.next());BufferedReader br = new BufferedReader(pr);
+			 FileWriter fw = new FileWriter(entrada.next());PrintWriter bw = new PrintWriter(fw)) {
 			
-		
-		while((linea =br.readLine()) != null) 
-		{
-			contador++;
-			if(contador%2 == 0)
-			bw.println(linea);
+			int contador = 0;
+			String linea;
+			System.out.println("Donde lo guardamos");
+
+			while ((linea = br.readLine()) != null) {
+				contador++;
+				if (contador % 2 == 0)
+					bw.println(linea);
+			}
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		}
-	} catch (FileNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		entrada.close();
 	}
-	entrada.close();
-}
 }
