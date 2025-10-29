@@ -2,14 +2,14 @@ package DesarrolloDeInterfaces.Swing.Ejercicio1;
 
 import java.util.List;
 
-public class Cliente {
+public class Venta {
 private String nombre;
 private Localidad localidad;
 private String procesador;
 private String memoria;
 private String discoDuro;
 private List<String> opciones;
-Cliente(String nombre, Localidad localidad, String procesador, String memoria, String discoDuro, List<String> opciones)
+Venta(String nombre, Localidad localidad, String procesador, String memoria, String discoDuro, List<String> opciones)
 {
 	this.nombre = nombre;
 	this.localidad = localidad;

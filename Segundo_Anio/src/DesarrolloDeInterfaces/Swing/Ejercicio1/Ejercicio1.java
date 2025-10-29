@@ -25,6 +25,7 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -335,13 +336,13 @@ public class Ejercicio1 extends JFrame implements ItemListener, ChangeListener, 
 				localidadEleccion = Localidad.Villalba;
 				break;
 			case "Rozas":
-				localidadEleccion = Localidad.Rozas;
+				localidadEleccion = Localidad.Moralzarzal;
 				break;
 			case "Moral":
-				localidadEleccion = Localidad.Moral;
+				localidadEleccion = Localidad.Guadarrama;
 				break;
 			case "Madrid":
-				localidadEleccion = Localidad.Madrid;
+				localidadEleccion = Localidad.Alpedrete;
 				break;
 			}
 		}
@@ -410,8 +411,12 @@ public class Ejercicio1 extends JFrame implements ItemListener, ChangeListener, 
 		}
 		if (e.getSource() == buscar) {
 			String cadena = textNombre.getText().trim();
-			nombreLista.setSelectedValue(cadena, true);
-			textNombre.setText("");
+			if (modeloLista.contains(cadena)) {
+				nombreLista.setSelectedValue(cadena, true);
+				textNombre.setText("");
+			} else
+				JOptionPane.showMessageDialog(this, "Cliente no encontrado en la lista.", "Búsqueda",
+						JOptionPane.WARNING_MESSAGE);
 
 		}
 		if (e.getSource() == cancelar) {
@@ -422,7 +427,7 @@ public class Ejercicio1 extends JFrame implements ItemListener, ChangeListener, 
 			}
 		}
 		if (e.getSource() == añadir) {
-			Cliente c = new Cliente(nombreLista.getSelectedValue(), localidadEleccion, procesadorEleccion,
+			Venta c = new Venta(nombreLista.getSelectedValue(), localidadEleccion, procesadorEleccion,
 					memoriaEleccion, discoDuroEleccion, opciones);
 			modeloLista.removeElement(c.getNombre()); // ya lo tengo seleccionado y lo borro
 			try {
@@ -435,7 +440,7 @@ public class Ejercicio1 extends JFrame implements ItemListener, ChangeListener, 
 
 	}
 
-	public void escriboArchivo(Cliente c) throws IOException {
+	public void escriboArchivo(Venta c) throws IOException {
 		File archivo = new File("Clientes.txt");
 		try (FileWriter fw = new FileWriter(archivo, true); PrintWriter pw = new PrintWriter(fw)) {
 			pw.println(c);

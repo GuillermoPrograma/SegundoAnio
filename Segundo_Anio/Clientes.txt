@@ -1,0 +1,4 @@
+Cliente [nombre=null, localidad=Villalba, procesador=P4 3.0 Gb, memoria=120 MB, discoDuro=200 GB, opciones=[Grabadora DVD]]
+Cliente [nombre=prueba1, localidad=Villalba, procesador=P4 3.2 Gb, memoria=120 MB, discoDuro=200 GB, opciones=[Grabadora DVD]]
+Cliente [nombre=prueba2, localidad=Villalba, procesador=AMD 650, memoria=1024 MB, discoDuro=80 GB, opciones=[Wifi, BackupRestore]]
+Cliente [nombre=prueba1, localidad=Rozas, procesador=AMD 650, memoria=1024 MB, discoDuro=200 GB, opciones=[Wifi]]
