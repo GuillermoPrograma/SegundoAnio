@@ -6,6 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +25,7 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -57,11 +62,14 @@ public class Ejercicio1 extends JFrame implements ItemListener, ChangeListener, 
 	private JButton salir;
 	private boolean activo = false;
 	JComponent[] componentes;
-	String procesadorEleccion;
-	String memoriaEleccion;
-	String monitorEleccion;
-	String discoDuroEleccion;
-	String[] opcionesEleccion;
+
+	Localidad localidadEleccion = Localidad.Villalba; // La primera opción es villalba, osea que si no cambia nada
+	String procesadorEleccion = "P4 3.2 Gb";
+	String memoriaEleccion = "1024 MB";
+	String monitorEleccion = "TFT 17";
+	String discoDuroEleccion = "200 GB";
+
+	List<String> opciones = new ArrayList<>();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -69,6 +77,7 @@ public class Ejercicio1 extends JFrame implements ItemListener, ChangeListener, 
 				try {
 					Ejercicio1 frame = new Ejercicio1();
 					frame.setVisible(true);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -102,7 +111,7 @@ public class Ejercicio1 extends JFrame implements ItemListener, ChangeListener, 
 		listaClientes.setBounds(278, 25, 78, 20);
 		getContentPane().add(listaClientes);
 
-		 menuLocalidad = new JComboBox();
+		menuLocalidad = new JComboBox();
 
 		menuLocalidad.setBounds(120, 56, 78, 20);
 		contentPane.add(menuLocalidad);
@@ -319,46 +328,51 @@ public class Ejercicio1 extends JFrame implements ItemListener, ChangeListener, 
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		
+
 		if (e.getSource() == menuLocalidad) {
 			String localidad = (String) menuLocalidad.getSelectedItem();
 			switch (localidad) {
 			case "Villalba":
-				menuLocalidad.setForeground(Color.RED);
+				localidadEleccion = Localidad.Villalba;
 				break;
 			case "Rozas":
-				menuLocalidad.setForeground(Color.BLUE);
+				localidadEleccion = Localidad.Moralzarzal;
 				break;
 			case "Moral":
-				menuLocalidad.setForeground(Color.GREEN);
+				localidadEleccion = Localidad.Guadarrama;
 				break;
 			case "Madrid":
-				menuLocalidad.setForeground(Color.YELLOW);
+				localidadEleccion = Localidad.Alpedrete;
 				break;
 			}
-			}
+		}
 
 	}
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
-		String[]opciones =new String[4];
-		int contador = 0;
-		if(opcion1 != null &&opcion1.isSelected()) 
-			opciones[contador] = opcion1.getName();
-			contador++;
-		if(opcion2 != null && opcion2.isSelected())
-			opciones[contador] = opcion2.getName();
-			contador++;
-		if(opcion3 != null && opcion3.isSelected())
-			opciones[contador] = opcion3.getName();
-			contador++;
-		if(opcion4 != null &&opcion4.isSelected())
-			opciones[contador] = opcion4.getName();
-			contador++;
-			
-			
-			
+
+		if (opcion1 != null)
+			if (opcion1.isSelected() && !opciones.contains(opcion1.getText()))
+				opciones.add(opcion1.getText());
+			else
+				opciones.remove(opcion1.getText());
+		if (opcion2 != null)
+			if (opcion2.isSelected() && !opciones.contains(opcion2.getText()))
+				opciones.add(opcion2.getText());
+			else
+				opciones.remove(opcion2.getText());
+		if (opcion3 != null)
+			if (opcion3.isSelected() && !opciones.contains(opcion3.getText()))
+				opciones.add(opcion3.getText());
+			else
+				opciones.remove(opcion3.getText());
+		if (opcion4 != null)
+			if (opcion4.isSelected() && !opciones.contains(opcion4.getText()))
+				opciones.add(opcion4.getText());
+			else
+				opciones.remove(opcion4.getText());
+
 		// Aqui los RadioButtons
 		if (e.getSource() == a1 || e.getSource() == a2 || e.getSource() == a3 || e.getSource() == a4) {
 			JRadioButton boton = (JRadioButton) e.getSource(); // creo un boton para sacarle luego el nombre, es una
@@ -397,8 +411,12 @@ public class Ejercicio1 extends JFrame implements ItemListener, ChangeListener, 
 		}
 		if (e.getSource() == buscar) {
 			String cadena = textNombre.getText().trim();
-			nombreLista.setSelectedValue(cadena, true);
-			textNombre.setText("");
+			if (modeloLista.contains(cadena)) {
+				nombreLista.setSelectedValue(cadena, true);
+				textNombre.setText("");
+			} else
+				JOptionPane.showMessageDialog(this, "Cliente no encontrado en la lista.", "Búsqueda",
+						JOptionPane.WARNING_MESSAGE);
 
 		}
 		if (e.getSource() == cancelar) {
@@ -408,8 +426,25 @@ public class Ejercicio1 extends JFrame implements ItemListener, ChangeListener, 
 				component.setEnabled(false);
 			}
 		}
-		
+		if (e.getSource() == añadir) {
+			Venta c = new Venta(nombreLista.getSelectedValue(), localidadEleccion, procesadorEleccion,
+					memoriaEleccion, discoDuroEleccion, opciones);
+			modeloLista.removeElement(c.getNombre()); // ya lo tengo seleccionado y lo borro
+			try {
+				escriboArchivo(c);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 
+	}
+
+	public void escriboArchivo(Venta c) throws IOException {
+		File archivo = new File("Clientes.txt");
+		try (FileWriter fw = new FileWriter(archivo, true); PrintWriter pw = new PrintWriter(fw)) {
+			pw.println(c);
+		}
 	}
 
 }
