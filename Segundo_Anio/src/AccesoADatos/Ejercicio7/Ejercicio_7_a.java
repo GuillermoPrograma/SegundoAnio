@@ -21,7 +21,7 @@ public class Ejercicio_7_a {
 
 	public static void main(String[] args) {
 
-		int alumnosCreados = 5;
+		int alumnosCreados = 1;
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		try {
