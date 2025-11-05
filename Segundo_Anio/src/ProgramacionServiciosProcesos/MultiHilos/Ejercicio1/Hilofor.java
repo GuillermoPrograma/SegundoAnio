@@ -1,4 +1,4 @@
-package ProgramacionServiciosProcesos.Multihilo.Ejercicio1;
+package ProgramacionServiciosProcesos.MultiHilos.Ejercicio1;
 
 public class Hilofor extends Thread {
 
