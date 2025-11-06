@@ -1,4 +1,4 @@
-package AccesoADatos.Ejercicio7;
+ package AccesoADatos.Ejercicio7;
 
 import java.io.File;
 import java.util.Scanner;
