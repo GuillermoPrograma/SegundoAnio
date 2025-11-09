@@ -19,22 +19,22 @@ public class HiloSumatorio extends Thread {
 
 		try (FileReader fr = new FileReader("numeros.dat"); BufferedReader br = new BufferedReader(fr)) {
 			String linea;
-			for (int i = 0; i < 100; i++) {
-
-				linea = br.readLine();
+			int contador = 0;
+			while ((linea = br.readLine()) != null) 
+			{
+				
 				num = Integer.parseInt(linea);
-				if (i < 100) {
-					suma += num;
-
-				} else if (i < 200) {
-					suma += num;
-				}
-				else if(i< 300) 
+				int ini = (n-1)*100;
+				int f = n * 100; // si le paso 2 tiene que ir hasta 200 para limite
+				if(ini <= contador && f > contador) 
 				{
 					suma += num;
 				}
-				esle if()
+				
+				contador++;
 			}
+
+				System.out.println("Suma total del hilo " + n + " es de " + suma);
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
