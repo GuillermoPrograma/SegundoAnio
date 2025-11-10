@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 
 
-public class MetodosEnComun {
+public abstract class MetodosEnComun {
 
 	public static AlumnoEjercicio7 CrearAlumnos() 
 	{
