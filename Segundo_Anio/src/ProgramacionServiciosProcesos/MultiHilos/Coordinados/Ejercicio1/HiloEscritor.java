@@ -1,6 +1,9 @@
 package ProgramacionServiciosProcesos.MultiHilos.Coordinados.Ejercicio1;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class HiloEscritor extends Thread{
 
@@ -16,7 +19,15 @@ public class HiloEscritor extends Thread{
 	
 	public synchronized void escriboArchivo() 
 	{
-		try(FileWrite fw = new FileWrite(f); PrintWriter pw = new PrintWriter(fw) ){}
+		try(FileWriter fw = new FileWriter(f); PrintWriter pw = new PrintWriter(fw) )
+		{
+			
+			
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	

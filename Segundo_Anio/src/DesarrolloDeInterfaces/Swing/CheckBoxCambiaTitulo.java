@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class Prueba5 extends JFrame implements ChangeListener {
+public class CheckBoxCambiaTitulo extends JFrame implements ChangeListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -21,7 +21,7 @@ public class Prueba5 extends JFrame implements ChangeListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Prueba5 frame = new Prueba5();
+					CheckBoxCambiaTitulo frame = new CheckBoxCambiaTitulo();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,7 +34,7 @@ public class Prueba5 extends JFrame implements ChangeListener {
 	 * Create the frame.
 	 */
 	private JCheckBox check1,check2,check3;
-	public Prueba5() {
+	public CheckBoxCambiaTitulo() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

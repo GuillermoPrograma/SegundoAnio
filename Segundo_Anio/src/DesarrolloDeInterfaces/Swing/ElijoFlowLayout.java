@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
-public class Prueba8_Layout extends JFrame {
+public class ElijoFlowLayout extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -25,7 +25,7 @@ public class Prueba8_Layout extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Prueba8_Layout v = new Prueba8_Layout();
+					ElijoFlowLayout v = new ElijoFlowLayout();
 					v.getContentPane().setLayout(new FlowLayout());
 					
 					JButton boton = new JButton("boton");
@@ -78,7 +78,7 @@ public class Prueba8_Layout extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Prueba8_Layout() {
+	public ElijoFlowLayout() {
 		
 		
 		

@@ -19,7 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
-public class Prueba1 extends JFrame {
+public class Calculadora extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -32,7 +32,7 @@ public class Prueba1 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Prueba1 frame = new Prueba1();
+					Calculadora frame = new Calculadora();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,7 +44,7 @@ public class Prueba1 extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Prueba1() {
+	public Calculadora() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 631, 524);
 		contentPane = new JPanel();

@@ -13,7 +13,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class Prueba6 extends JFrame implements ChangeListener, ActionListener { //Uno espera a que cambie de estado el otro es cuando haces un click
+public class HastaquenoAceptesCheckBoxNoPasas extends JFrame implements ChangeListener, ActionListener { //Uno espera a que cambie de estado el otro es cuando haces un click
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -25,7 +25,7 @@ public class Prueba6 extends JFrame implements ChangeListener, ActionListener { 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Prueba6 frame = new Prueba6();
+					HastaquenoAceptesCheckBoxNoPasas frame = new HastaquenoAceptesCheckBoxNoPasas();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +39,7 @@ public class Prueba6 extends JFrame implements ChangeListener, ActionListener { 
 	 */
 	private JCheckBox check1;
 	private JButton boton1;
-	public Prueba6() {
+	public HastaquenoAceptesCheckBoxNoPasas() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

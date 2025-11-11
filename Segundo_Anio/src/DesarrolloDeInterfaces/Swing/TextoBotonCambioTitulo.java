@@ -22,7 +22,7 @@ import javax.swing.JTextField;
 
 import javax.swing.JLabel;
 
-public class Prueba_2 extends JFrame implements ActionListener {
+public class TextoBotonCambioTitulo extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,7 @@ public class Prueba_2 extends JFrame implements ActionListener {
 
 	public static void main(String[] args) {
 
-		Prueba_2 ej = new Prueba_2();
+		TextoBotonCambioTitulo ej = new TextoBotonCambioTitulo();
 
 		ej.setBounds(0, 0, 300, 200);
 
@@ -58,7 +58,7 @@ public class Prueba_2 extends JFrame implements ActionListener {
 
 	JButton boton2;
 
-	public Prueba_2() {
+	public TextoBotonCambioTitulo() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

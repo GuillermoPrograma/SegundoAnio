@@ -19,7 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 
-public class Prueba3 extends JFrame implements ItemListener, ActionListener {
+public class CambioMenuyCombobox extends JFrame implements ItemListener, ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -32,7 +32,7 @@ public class Prueba3 extends JFrame implements ItemListener, ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Prueba3 frame = new Prueba3();
+					CambioMenuyCombobox frame = new CambioMenuyCombobox();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,16 +45,15 @@ public class Prueba3 extends JFrame implements ItemListener, ActionListener {
 
 	private JButton boton2;
 	private JLabel lblTitulo;
-	private JMenu mb;
-	private JMenu mb2;
+	
 	private JMenuBar opciones;
 	private JMenu menu1;
-	private JMenuItem mi1,mi2,mi3;
+	private JMenuItem mi1,mi2,mi3,mi4,mi5;
 
 	/**
 	 * Create the frame.
 	 */
-	public Prueba3() {
+	public CambioMenuyCombobox() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setBounds(100, 100, 450, 300);
@@ -100,24 +99,31 @@ public class Prueba3 extends JFrame implements ItemListener, ActionListener {
 		contentPane.add(lblTitulo);
 		
 		opciones = new JMenuBar();
-		mb = new JMenu();
-		mb2 = new JMenu();
-		
-		setJMenuBar(opciones);
-		
 		menu1 = new JMenu("opciones");
-		mb.add(menu1);
+		opciones.add(menu1);
+		
 		mi1 = new JMenuItem("Rojo");
 		mi1.addActionListener(this);
 		menu1.add(mi1);
+		
 		mi2 = new JMenuItem("Verde");
 		mi2.addActionListener(this);
 		menu1.add(mi2);
-		mi3 = new JMenuItem("Azul");
+		
+		mi3 = new JMenu("Azul");
 		mi3.addActionListener(this);
 		menu1.add(mi3);
-		opciones.add(mb);
-		opciones.add(mb2);
+		
+		mi4 = new JMenuItem("Celeste");
+		mi4.addActionListener(this);
+		mi3.add(mi4);
+		
+		mi5 = new JMenuItem("Azul Electrico");
+		mi5.addActionListener(this);
+		mi3.add(mi5);
+		
+		
+		setJMenuBar(opciones);
 	}
 
 	@Override
@@ -139,9 +145,17 @@ public class Prueba3 extends JFrame implements ItemListener, ActionListener {
 			getContentPane().setBackground(Color.green);
 
 		}
-		if (e.getSource() == mi3) {
+		
+		
+		if (e.getSource() == mi4) {
 
-			getContentPane().setBackground(Color.blue);
+			getContentPane().setBackground(new Color(135, 206, 235));
+
+		}
+		
+		if (e.getSource() == mi5) {
+
+			getContentPane().setBackground(new Color(44, 117, 255));
 
 		}
 

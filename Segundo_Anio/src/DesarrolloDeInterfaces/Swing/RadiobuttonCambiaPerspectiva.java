@@ -11,7 +11,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class Prueba7_RadioButton extends JFrame implements ChangeListener {
+public class RadiobuttonCambiaPerspectiva extends JFrame implements ChangeListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -23,7 +23,7 @@ public class Prueba7_RadioButton extends JFrame implements ChangeListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Prueba7_RadioButton frame = new Prueba7_RadioButton();
+					RadiobuttonCambiaPerspectiva frame = new RadiobuttonCambiaPerspectiva();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +37,7 @@ public class Prueba7_RadioButton extends JFrame implements ChangeListener {
 	 */
 	private JRadioButton boton1, boton2 , boton3;
 	private ButtonGroup bg; //PARA QUE SE MAQUE DE UNO EN UNO
-	public Prueba7_RadioButton() {
+	public RadiobuttonCambiaPerspectiva() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 497, 330);
 		contentPane = new JPanel();

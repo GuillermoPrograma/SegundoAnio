@@ -16,7 +16,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
-public class Ejercicio_7_b {
+public class Ejercicio_7_b extends MetodosEnComun {
 
 	public static void main(String[] args) {
 
@@ -24,23 +24,16 @@ public class Ejercicio_7_b {
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		try {
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			DOMImplementation implementation = builder.getDOMImplementation();
-			Document documento = implementation.createDocument(null, "Alumnos_b", null);
-			documento.setXmlVersion("1.0");
+			Document documento = GeneroXML(factory);
 
 			for (int i = 0; i < alumnosCreados; i++) {
 				Element alumno = documento.createElement("Alumno");
 				documento.getDocumentElement().appendChild(alumno);
 
-				AlumnoEjercicio7 alumnoEj7 = MetodosEnComun.CrearAlumnos();
+				AlumnoEjercicio7 alumnoEj7 = CrearAlumnos();
 				crearAlumnoComoAtributos(alumno, alumnoEj7);
 			}
-			Source source = new DOMSource(documento); // El XML en memoria
-			Result result = new StreamResult(new java.io.File("Alumnos_b.xml")); // Archivo de salida
-			Transformer transformer = TransformerFactory.newInstance().newTransformer();
-			transformer.transform(source, result);
-			System.out.println("XML completado con éxito");
+			FinalizoXml(documento);
 		} catch (TransformerException e) {
 			e.printStackTrace();
 		} catch (ParserConfigurationException e) {
@@ -60,8 +53,4 @@ public class Ejercicio_7_b {
 		alumno.setAttribute("Fecha_Nacimiento", alumnoEj7.getFechaString());
 	}
 
-
-	
-
-	
 }

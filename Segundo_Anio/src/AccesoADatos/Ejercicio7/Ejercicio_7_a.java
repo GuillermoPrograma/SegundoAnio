@@ -13,35 +13,30 @@ import org.w3c.dom.Text;
 import javax.xml.transform.Source;
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-public class Ejercicio_7_a {
+public class Ejercicio_7_a extends MetodosEnComun{
 
 	public static void main(String[] args) {
 
-		int alumnosCreados = 1;
+		final int alumnosCreados = 1;
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		try {
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			DOMImplementation implementation = builder.getDOMImplementation();
-			Document documento = implementation.createDocument(null, "Alumnos", null);
-			documento.setXmlVersion("1.0");
+			Document documento = GeneroXML(factory);
 
 			for (int i = 0; i < alumnosCreados; i++) {
 				Element alumno = documento.createElement("Alumno");
 				documento.getDocumentElement().appendChild(alumno);
 
-				AlumnoEjercicio7 alumnoEj7 = MetodosEnComun.CrearAlumnos();
-				extracted(documento, alumno, alumnoEj7);
+				AlumnoEjercicio7 alumnoEj7 = CrearAlumnos();
+				GenerarAlumno(documento, alumno, alumnoEj7);
 			}
-			Source source = new DOMSource(documento); // El XML en memoria
-			Result result = new StreamResult(new java.io.File("Alumnos_a.xml")); // Archivo de salida
-			Transformer transformer = TransformerFactory.newInstance().newTransformer();
-			transformer.transform(source, result);
-			System.out.println("XML completado con éxito");
+			FinalizoXml(documento);
 		} catch (TransformerException e) {
 			e.printStackTrace();
 		} catch (ParserConfigurationException e) {
@@ -50,7 +45,13 @@ public class Ejercicio_7_a {
 
 	}
 
-	private static void extracted(Document documento, Element alumno, AlumnoEjercicio7 alumnoEj7)
+
+
+	
+
+	
+
+	private static void GenerarAlumno(Document documento, Element alumno, AlumnoEjercicio7 alumnoEj7)
 			throws TransformerException, ParserConfigurationException {
 		crearElementoComoEtiqueta("Nia", alumnoEj7.getNia(), alumno, documento);
 		crearElementoComoEtiqueta("Nombre", alumnoEj7.getNombre(), alumno, documento);

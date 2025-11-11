@@ -18,7 +18,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class Prueba4 extends JFrame implements ActionListener, ChangeListener{
+public class MenuyCheckBox extends JFrame implements ActionListener, ChangeListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -40,7 +40,7 @@ public class Prueba4 extends JFrame implements ActionListener, ChangeListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Prueba4 frame = new Prueba4();
+					MenuyCheckBox frame = new MenuyCheckBox();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,7 +53,7 @@ public class Prueba4 extends JFrame implements ActionListener, ChangeListener{
 	 * Create the frame.
 	 */
 	
-	public Prueba4() {
+	public MenuyCheckBox() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
