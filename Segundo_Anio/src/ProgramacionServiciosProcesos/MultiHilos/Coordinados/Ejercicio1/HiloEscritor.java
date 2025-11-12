@@ -5,30 +5,43 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class HiloEscritor extends Thread{
-
+public class HiloEscritor extends Thread {
+	Object lock;
 	File f;
-	
-	public HiloEscritor(File f) 
-	{
+	int contador = 0;
+
+	public HiloEscritor(File f, Object lock) {
 		this.f = f;
-		
+		this.lock = lock;
 	}
-	
-	public void run() {}
-	
-	public synchronized void escriboArchivo() 
-	{
-		try(FileWriter fw = new FileWriter(f); PrintWriter pw = new PrintWriter(fw) )
-		{
-			
-			
-		} 
-		catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+	public void run() {
+
+		escriboArchivo(lock);
+
+	}
+
+	public void escriboArchivo(Object lock) {
+
+		synchronized (lock) {
+			try (FileWriter fw = new FileWriter(f); PrintWriter pw = new PrintWriter(fw)) {
+				for (int i = 0; i <= 1000; i++) {
+					pw.println(contador);
+					contador++;
+					lock.notify();
+					try {
+						lock.wait();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
-	
-	
+
 }
