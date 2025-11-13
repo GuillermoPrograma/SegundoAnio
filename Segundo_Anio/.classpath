@@ -11,6 +11,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/alumno/eclipse-workspace/PruebaPsp/gson-2.13.2.jar"/>
+	<classpathentry kind="lib" path="E:/Guille/Programación/Acceso a Datos/GSON/gson-2.13.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

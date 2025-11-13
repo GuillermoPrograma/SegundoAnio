@@ -1,8 +1,10 @@
 package DesarrolloDeInterfaces.Swing.TresEnRaya;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
@@ -16,7 +18,9 @@ public class TresRaya extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	JButton[][] matriz;
-
+	boolean turnoAzul = false;
+	boolean ganado = false;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -43,42 +47,22 @@ public class TresRaya extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(3, 3));
-
-		JButton a1 = new JButton("");
-		contentPane.add(a1);
-		a1.addActionListener(this);
-		JButton a2 = new JButton("");
-		contentPane.add(a2);
-		a2.addActionListener(this);
-		JButton a3 = new JButton("");
-		contentPane.add(a3);
-		a3.addActionListener(this);
-		JButton b1 = new JButton("");
-		contentPane.add(b1);
-		b1.addActionListener(this);
-		JButton b2 = new JButton("");
-		contentPane.add(b2);
-		b2.addActionListener(this);
-		JButton b3 = new JButton("");
-		contentPane.add(b3);
-		b3.addActionListener(this);
-		JButton c1 = new JButton("");
-		contentPane.add(c1);
-		c1.addActionListener(this);
-		JButton c2 = new JButton("");
-		contentPane.add(c2);
-		c2.addActionListener(this);
-		JButton c3 = new JButton("");
-		contentPane.add(c3);
-		c3.addActionListener(this);
+		
+		
 
 		matriz = new JButton[3][3];
-		for (int i = 0; i <= 3; i++) {
-			for (int j = 0; j <= 3; j++) {
-				
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				JButton b = new JButton();
+				matriz[i][j] = b;
+				contentPane.add(b);
+				b.addActionListener(this);
 			}
 
 		}
+		
+		
+		
 
 		rellenoMatriz();
 
@@ -86,8 +70,55 @@ public class TresRaya extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
+		
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				
+				JButton boton = matriz[i][j];
+				if(e.getSource() == boton && boton.getText().equals("") ) 
+				{
+					if(turnoAzul == false) //Empieza el rojo 
+					{
+						matriz[i][j].setText("X");
+						matriz[i][j].setForeground(Color.red);
+						turnoAzul = true;
+					}
+					else 
+					{
+						//Turno Azul
+						matriz[i][j].setText("O");
+						matriz[i][j].setForeground(Color.blue);
+						turnoAzul = false;
+					}
+					
+					if(matriz[i][0].getText().equals("X") && matriz[i][1].getText().equals("X") && matriz[i][2].getText().equals("X")) 
+					{
+						ganado = true;
+					}
+					if(matriz[i][0].getText().equals("O") && matriz[i][1].getText().equals("O") && matriz[i][2].getText().equals("O")) 
+					{
+						ganado = true;
+					}
+					if(matriz[j][0].getText().equals("X") && matriz[j][1].getText().equals("X") && matriz[j][2].getText().equals("X")) 
+					{
+						ganado = true;
+					}
+					if(matriz[j][0].getText().equals("O") && matriz[j][1].getText().equals("O") && matriz[j][2].getText().equals("O")) 
+					{
+						ganado = true;
+					}
+					if(ganado == true) 
+					{
+						System.out.println("Juego acabado");
+					}
+					
+				}
+					
+				}
+				 
+			}
+		
+		
 	}
 
 	public void rellenoMatriz() {
