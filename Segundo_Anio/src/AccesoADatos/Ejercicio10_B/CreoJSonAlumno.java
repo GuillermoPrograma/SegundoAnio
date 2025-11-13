@@ -31,7 +31,7 @@ public class CreoJSonAlumno {
 
 	private static Map<String, Object> PonerAlumnoJSON(AlumnoEjercicio10 a) {
 		Map<String, Object> alumno = new HashMap<>(); // ES UN DICCIONARIO PARA LLEGAR A UN OBJETO CON OTRO OBJETO
-
+		alumno.put("Nombre", a.getNombre());
 		alumno.put("Nia", a.getNia());
 		alumno.put("Apellidos", a.getApellidos());
 		alumno.put("Genero", a.getGenero());
