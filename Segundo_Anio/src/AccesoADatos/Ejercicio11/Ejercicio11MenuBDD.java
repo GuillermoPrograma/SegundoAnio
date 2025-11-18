@@ -33,7 +33,7 @@ public class Ejercicio11MenuBDD {
 			
 			System.out.println("1- Insertar un nuevo alumno.\r\n" + "\n" + "2- Mostar todos los alumnos (en consola).\r\n"
 					+ "\n"
-					+ "3- Guardar todos los alumnos en un fichero (tú eliges el formato del fichero, pero no puede ser XML ni JSON).\r\n"
+					+ "3- Guardar todos los alumnos en un fichero (formato binario).\r\n"
 					+ "\n" + "4- Leer alumnos de un fichero (con el formato anterior), y guardarlo en una BD.\r\n" + "\n"
 					+ "5- Modificar el nombre de un alumno guardado en la base de datos a partir de su Primary Key (PK).\r\n"
 					+ "\n" + "6- Eliminar un alumno a partir de su (PK).\r\n" + "\n"
@@ -66,12 +66,60 @@ public class Ejercicio11MenuBDD {
 				break;
 			 default:
 				 bucle=false;
-				 System.out.println("Acaba Sistema");
+				 System.out.println("Se cierra el Sistema");
 				break;
 			}
 		}
 		
 
+	}
+	
+	private static void ModificoNombre(int nia) 
+	{
+		String sql = "Update alumnosEjercicio11 set Nombre=? where Nia=?";
+		
+		try(Connection conexion = ConexionBDD();PreparedStatement ps = conexion.prepareStatement(sql))
+		{
+			Scanner entrada = new Scanner(System.in);
+			
+			System.out.println("Dime a que nombre quieres cambiar");
+			String nombre = entrada.nextLine();
+			ps.setString(2, nombre);
+			
+			ps.setInt(1, nia);
+			
+			
+			
+			 int filasActualizadas = ps.executeUpdate();
+			    System.out.println("Filas actualizadas: " + filasActualizadas);
+			    
+			
+		}catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	
+	private static Connection ConexionBDD()
+	{
+		//Cargar el driver
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			//Establecemos la conexión con la BD en nuestro servidor local con el usuario y la password
+			return DriverManager.getConnection("jdbc:mysql://localhost/ejercicio11","root","Manager");
+		
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+		
+		
 	}
 
 	private static void LeoObjetoBinario(File archivo) {
@@ -84,7 +132,7 @@ public class Ejercicio11MenuBDD {
 				try {
 					AlumnoEjercicio11 a = (AlumnoEjercicio11) entradaDatos.readObject();
 					
-					ConexionBaseDeDatos(a);
+					InsertoAlumnoBasedeDatos(a);
 				}
 
 				catch (EOFException eof) {
@@ -98,18 +146,13 @@ public class Ejercicio11MenuBDD {
 	}
 
 	
-	private static void ConexionBaseDeDatos(AlumnoEjercicio11 a) 
+	private static void InsertoAlumnoBasedeDatos(AlumnoEjercicio11 a) 
 	{
 		try {
-			//Cargar el driver
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			//Establecemos la conexión con la BD en nuestro servidor local con el usuario y la password
-			Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/ejercicio11","root","Manager");
-			//Preparamos la consulta
-			Statement sentencia = conexion.createStatement();
-			String sql = "Insert Into alumnosejercicio11 VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+			Connection conexion = ConexionBDD();
+			String sql = "Insert Into alumnosEjercicio11 VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement ps = conexion.prepareStatement(sql);
-			
+			//Preparamos la consulta
 			
 			
 			
@@ -128,7 +171,7 @@ public class Ejercicio11MenuBDD {
 			
 			
 			
-			sentencia.close();
+			
 			conexion.close();
 		}
 		catch(Exception e) 
@@ -137,6 +180,8 @@ public class Ejercicio11MenuBDD {
 		}
 		
 	}
+	
+	
 	
 	private static void MetoAlumnosEnBinario(List<AlumnoEjercicio11> listaAlumnos, File archivo) {
 	     
