@@ -11,8 +11,10 @@ public class Check {
 		Object obj = new Object();
 		HiloEscritor he = new HiloEscritor(f,obj);
 		HiloLector hl = new HiloLector(f,obj);
-		he.start();
+	
+		
 		hl.start();
+		he.start();
 		
 	}
 	

@@ -23,34 +23,42 @@ public class HiloLector extends Thread {
 	}
 
 	public void leoArchivo(File f) {
-		synchronized (lock) {
-			try (FileReader pr = new FileReader(f); BufferedReader br = new BufferedReader(pr)) {
 
-				for (int i = 0; i <= 1000; i++) {
-					String linea = br.readLine();
+		try (FileReader pr = new FileReader(f); BufferedReader br = new BufferedReader(pr)) {
 
-					if (Integer.parseInt(linea) == contador) {
-						System.out.println("Numero :" + contador + " Correcto");
-					} else {
-						System.out.println("Numero :" + contador + " Incorrecto");
-					}
-					contador++;
-					lock.notify();
+			for (int i = 0; i <= 1000; i++) {
+
+				synchronized (lock) {
 					try {
 						lock.wait();
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				}
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+					String linea = br.readLine();
+					try {
+						if (Integer.parseInt(linea) == contador) {
+							System.out.println("Numero :" + contador + " Correcto");
+						} else {
+							System.out.println("Numero :" + contador + " Incorrecto");
+						}
+						contador++;
+						lock.notify();
 
+					} catch (Exception e) {
+						System.out.println("no hago parse");
+						return;
+					}
+				}
+			}
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+
 }

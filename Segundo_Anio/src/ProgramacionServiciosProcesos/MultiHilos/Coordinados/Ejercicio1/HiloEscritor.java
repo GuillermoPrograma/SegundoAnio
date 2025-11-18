@@ -16,17 +16,18 @@ public class HiloEscritor extends Thread {
 	}
 
 	public void run() {
-
+		try { Thread.sleep(50); } catch (InterruptedException e) {}
 		escriboArchivo(lock);
 
 	}
 
 	public void escriboArchivo(Object lock) {
 
-		synchronized (lock) {
-			try (FileWriter fw = new FileWriter(f); PrintWriter pw = new PrintWriter(fw)) {
-				for (int i = 0; i <= 1000; i++) {
+		try (FileWriter fw = new FileWriter(f); PrintWriter pw = new PrintWriter(fw)) {
+			for (int i = 0; i <= 1000; i++) {
+				synchronized (lock) {
 					pw.println(contador);
+					pw.flush();
 					contador++;
 					lock.notify();
 					try {
@@ -36,12 +37,11 @@ public class HiloEscritor extends Thread {
 						e.printStackTrace();
 					}
 				}
-
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
-
 }
