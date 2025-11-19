@@ -10,13 +10,13 @@ public class Cuenta {
 
 	}
 
-	private void DevolverValorSaldo(double dinero) {
+	public void DevolverValorSaldo(double dinero) {
 		saldo += dinero;
 		numero_reintegro++;
 	}
 
-	private void RestoSaldoCantidad(double dinero) {
-		if (dinero < saldo) {
+	public void RestoSaldoCantidad(double dinero) {
+		if (ComprobarSaldoMenorCantidad(dinero)){
 			numero_reintegro++;
 			saldo -= dinero;
 		}
@@ -25,9 +25,15 @@ public class Cuenta {
 
 	}
 	
-	private void ComprobarSaldoMenorCantidad(double saldo, double dinero) 
+	private boolean ComprobarSaldoMenorCantidad(double dinero) 
 	{
-		if(sa)
+		
+		if(dinero < saldo) 
+		{
+		return true;	
+		}
+		else
+		return false;
 	}
 
 }
