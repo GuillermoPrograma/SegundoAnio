@@ -28,6 +28,11 @@ public class Ejercicio11MenuBDD {
 
 	public static void main(String[] args) {
 
+		Menu();
+
+	}
+
+	private static void Menu() {
 		Scanner entrada = new Scanner(System.in);
 		File archivo = new File("AlumnosEjercicio11.dat");
 
@@ -89,7 +94,6 @@ public class Ejercicio11MenuBDD {
 				break;
 			}
 		}
-
 	}
 
 	private static void eliminoPorApellido(String apellido) {
@@ -123,8 +127,8 @@ public class Ejercicio11MenuBDD {
 	private static void ModificoNombre(int nia) {
 		String sql = "Update alumnosEjercicio11 set Nombre=? where Nia=?";
 
-		try (Connection conexion = ConexionBDD(); PreparedStatement ps = conexion.prepareStatement(sql)) {
-			Scanner entrada = new Scanner(System.in);
+		try (Connection conexion = ConexionBDD(); PreparedStatement ps = conexion.prepareStatement(sql);Scanner entrada = new Scanner(System.in);) {
+			
 
 			System.out.println("Dime a que nombre quieres cambiar");
 			String nombre = entrada.nextLine();
@@ -143,9 +147,7 @@ public class Ejercicio11MenuBDD {
 	private static Connection ConexionBDD() {
 		// Cargar el driver
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			// Establecemos la conexión con la BD en nuestro servidor local con el usuario y
-			// la password
+			
 			return DriverManager.getConnection("jdbc:mysql://localhost/ejercicio11", "root", "Manager");
 
 		} catch (Exception e) {
