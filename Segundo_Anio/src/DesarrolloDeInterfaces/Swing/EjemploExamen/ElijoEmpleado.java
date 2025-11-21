@@ -215,9 +215,13 @@ public class ElijoEmpleado extends JFrame implements ActionListener, ItemListene
 		}
 		if(e.getSource() == m2) 
 		{
-			JFrame elijoEmpleado = new ElijoEmpleado();
-			elijoEmpleado.setVisible(true);
-			dispose(); 
+			JFrame enseñoEmpleado = new EnseñoEmpleados();
+			enseñoEmpleado.setVisible(true);
+			dispose();  n  
+		}
+		if(e.getSource() == m3) 
+		{
+			
 		}
 	}
 
