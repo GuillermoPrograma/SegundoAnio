@@ -3,6 +3,8 @@ package ProgramacionServiciosProcesos.MultiHilos.Coordinados.Ejercicio24;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.JLabel;
 
 public class Ejercicio24 extends JFrame implements ActionListener{
@@ -28,6 +31,8 @@ public class Ejercicio24 extends JFrame implements ActionListener{
 	JButton btnFinalizarActividad;
 	MyHilo h1 = new MyHilo();
 	MyHilo h2 = new MyHilo();
+	JLabel etiquetaHilo1;
+	JLabel etiquetaHilo2;
 	/**
 	 * Launch the application.
 	 */
@@ -112,19 +117,52 @@ public class Ejercicio24 extends JFrame implements ActionListener{
 		txtHilo2.setBounds(307, 155, 96, 20);
 		contentPane.add(txtHilo2);
 		
-		JButton btnFinalizarActividad = new JButton("Finalizar Actividad");
+		btnFinalizarActividad = new JButton("Finalizar Actividad");
+		btnFinalizarActividad.addActionListener(this);
 		btnFinalizarActividad.setBounds(124, 214, 181, 22);
 		contentPane.add(btnFinalizarActividad);
 		
-		JLabel etiquetaHilo1 = new JLabel("Hilo1 suspendido");
+		etiquetaHilo1 = new JLabel("Hilo1 suspendido");
 		etiquetaHilo1.setBounds(51, 189, 88, 14);
 		contentPane.add(etiquetaHilo1);
 		
-		JLabel etiquetaHilo2 = new JLabel("Hilo2 suspendido");
+		etiquetaHilo2 = new JLabel("Hilo2 suspendido");
 		etiquetaHilo2.setBounds(307, 189, 88, 14);
 		contentPane.add(etiquetaHilo2);
 
 	}
+	
+	PrintStream ps1 = new PrintStream(new OutputStream() {
+	    private StringBuilder buffer = new StringBuilder();
+
+	    @Override
+	    public void write(int b) {
+	        char c = (char) b;
+	        if (c == '\n') { //Si es el salto de linea
+	            String numero = buffer.toString();
+	            buffer.setLength(0); //Limpio
+	            SwingUtilities.invokeLater(() -> txtHilo1.setText(numero)); //Aqui Escribo el nuevo
+	        } else {
+	            buffer.append(c); //Si son dos o tres digitos
+	        }
+	    }
+	});
+	
+	PrintStream ps2 = new PrintStream(new OutputStream() {
+	    private StringBuilder buffer = new StringBuilder();
+
+	    @Override
+	    public void write(int b) {
+	        char c = (char) b;
+	        if (c == '\n') {
+	            String numero = buffer.toString();
+	            buffer.setLength(0);
+	            SwingUtilities.invokeLater(() -> txtHilo2.setText(numero));
+	        } else {
+	            buffer.append(c);
+	        }
+	    }
+	});
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -138,8 +176,38 @@ public class Ejercicio24 extends JFrame implements ActionListener{
 		}
 		if(e.getSource() == botonReanudoHilo1) 
 		{
+			h2.Suspende();
 			h1.Reanuda();
+			etiquetaHilo1.setText("Hilo1 En Movimiento");
+			etiquetaHilo2.setText("Hilo2 Suspendido");
+			System.setOut(ps1);
 		}
+		
+		if(e.getSource() == botonReanudoHilo2) 
+		{
+			h2.Reanuda();
+			h1.Suspende();
+			etiquetaHilo1.setText("Hilo1 Suspendido");
+			etiquetaHilo2.setText("Hilo2 En Movimiento");
+			System.setOut(ps2);
+		}
+		if(e.getSource() == botonSuspendo1) 
+		{
+			h1.Suspende();
+			etiquetaHilo1.setText("Hilo1 Suspendido");
+			
+		}
+		if(e.getSource() == botonSuspendo2) 
+		{
+			h2.Suspende();
+			etiquetaHilo2.setText("Hilo2 Suspendido");
+			
+		}
+		if(e.getSource() == btnFinalizarActividad) 
+		{
+			System.exit(0);
+		}
+		
 		
 		
 	}
