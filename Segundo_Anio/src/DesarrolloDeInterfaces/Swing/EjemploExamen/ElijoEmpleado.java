@@ -217,7 +217,7 @@ public class ElijoEmpleado extends JFrame implements ActionListener, ItemListene
 		{
 			JFrame enseñoEmpleado = new EnseñoEmpleados();
 			enseñoEmpleado.setVisible(true);
-			dispose();  n  
+			dispose();   
 		}
 		if(e.getSource() == m3) 
 		{
