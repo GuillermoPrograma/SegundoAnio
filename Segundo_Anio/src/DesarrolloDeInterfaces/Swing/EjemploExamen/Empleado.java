@@ -92,5 +92,13 @@ public Double getSalario() {
 public void setSalario(Double salario) {
 	this.salario = salario;
 }
+
+
+@Override
+public String toString() {
+	return "Empleado [genero=" + genero + ", otrosIngresos=" + otrosIngresos + ", pueblo=" + pueblo + ", nombre="
+			+ nombre + ", apellidos=" + apellidos + ", pagoSeguridadSocial=" + pagoSeguridadSocial + ", irpf=" + irpf
+			+ ", salario=" + salario + "]";
+}
 	
 }

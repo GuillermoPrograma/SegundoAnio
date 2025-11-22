@@ -1,15 +1,20 @@
 package DesarrolloDeInterfaces.Swing.EjemploExamen;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import DesarrolloDeInterfaces.Swing.Ejercicio1.LoExporto;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -42,6 +47,7 @@ public class ElijoEmpleado extends JFrame implements ActionListener, ItemListene
 	private JMenuBar mb;
 	private JMenu menu1;
 	private JMenuItem mi1,m2,m3,m4;
+	private JLabel avisoTexto;
 	/**
 	 * Launch the application.
 	 */
@@ -77,19 +83,21 @@ public class ElijoEmpleado extends JFrame implements ActionListener, ItemListene
 		mi1.addActionListener(this);
 		menu1.add(mi1);
 		m2 = new JMenuItem ("Ver Empleado");
+		m2.addActionListener(this);
 		menu1.add(m2);
 		m3 = new JMenuItem ("Guardar Archivos");
+		m3.addActionListener(this);
 		menu1.add(m3);
 		
-		nombreTexto = new JTextField();
-		nombreTexto.setBounds(337, 64, 201, 20);
-		contentPane.add(nombreTexto);
-		nombreTexto.setColumns(10);
-
 		nombreApellidos = new JTextField();
-		nombreApellidos.setBounds(38, 64, 119, 20);
+		nombreApellidos.setBounds(337, 64, 201, 20);
 		contentPane.add(nombreApellidos);
 		nombreApellidos.setColumns(10);
+
+		nombreTexto = new JTextField();
+		nombreTexto.setBounds(38, 64, 119, 20);
+		contentPane.add(nombreTexto);
+		nombreTexto.setColumns(10);
 
 		JLabel lblNewLabel = new JLabel("Nombre Empleado");
 		lblNewLabel.setBounds(38, 28, 119, 14);
@@ -107,6 +115,7 @@ public class ElijoEmpleado extends JFrame implements ActionListener, ItemListene
 
 		botonMasculino = new JRadioButton("Masculino");
 		botonMasculino.setBounds(47, 139, 110, 22);
+		botonMasculino.setSelected(true);
 		contentPane.add(botonMasculino);
 		bg.add(botonMasculino);
 		
@@ -168,30 +177,41 @@ public class ElijoEmpleado extends JFrame implements ActionListener, ItemListene
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Villalba", "MatalElPino", "Rozas" }));
 		comboBox.setBounds(47, 227, 82, 22);
 		contentPane.add(comboBox);
+		
+		avisoTexto = new JLabel("Aviso");
+		avisoTexto.setVisible(false);
+		avisoTexto.setBounds(242, 391, 97, 14);
+		contentPane.add(avisoTexto);
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		Menu(e);		
+		
 		if (e.getSource() == botonAgregar) {
 
-			if (nombreTexto.getText().length() < 3 && nombreTexto.getText().length() > 15)
+			String nombretextoEmpl = ComprueboNombre();
+			if(nombretextoEmpl == null)
 				return;
-			String nombretextoEmpl = nombreTexto.getText();
 
-			if (nombreApellidos.getText().trim().length() < 5)
+			String nombreApellidoEmpleado = ComprueboApellido();
+			if(nombreApellidoEmpleado == null)
 				return;
-			String nombreApellidoEmpleado = nombreApellidos.getText().trim();
+			
 			Double salarioEmpleado;
 			Double seguridadSocialEmpleado;
 			Double irpftextoEmpleado;
+			
 			try {
 				salarioEmpleado = Double.parseDouble(salaroTexto.getText());
 				seguridadSocialEmpleado = Double.parseDouble(seguridadSocialTexto.getText());
 				irpftextoEmpleado = Double.parseDouble(irpfTexto.getText());
 				
 			} catch (Exception ex) {
-				System.out.println("Aqui es donde pongo el mensaje de tiene que ser numero");
+				avisoTexto.setText("El Salario, la Seguirdad Social y el IRPF tienen que ser números");
+				avisoTexto.setVisible(true);
+				avisoTexto.setForeground(Color.red);
 				return;
 			}
 			String genero;
@@ -203,16 +223,68 @@ public class ElijoEmpleado extends JFrame implements ActionListener, ItemListene
 			
 			String ingresosTexto = "";
 			if(otrosIngresos != null) 
-			ingresosTexto = otrosIngresos.toString();
+			ingresosTexto = otrosIngresos.getText().toString();
 			
 		MetodosComun.añadoEmpleado(new Empleado(nombretextoEmpl, nombreApellidoEmpleado,comboBox.getSelectedItem().toString(),genero,ingresosTexto,
 				seguridadSocialEmpleado,irpftextoEmpleado,salarioEmpleado));
 		
+		Limpio();
+		
+		avisoTexto.setText("Creado Correctamente");
+		avisoTexto.setVisible(true);
+		avisoTexto.setForeground(Color.green);
 			
-			
+		
 			
 
 		}
+		if(e.getSource() == botonLimpiar) 
+		{
+			Limpio();
+		}
+		
+	}
+
+	private void Limpio() {
+		nombreApellidos.setText("");
+		nombreTexto.setText("");
+		salaroTexto.setText("");
+		seguridadSocialTexto.setText("");
+		irpfTexto.setText("");
+		otrosIngresos.setText("");
+	}
+
+	private String ComprueboApellido() {
+		if (nombreApellidos.getText().trim().length() < 5) {
+			avisoTexto.setText("Apellido inválido");
+			avisoTexto.setVisible(true);
+			avisoTexto.setForeground(Color.red);
+			return  null;
+		}
+		else {
+		String nombreApellidoEmpleado = nombreApellidos.getText().trim();
+		return nombreApellidoEmpleado;
+		}
+	}
+
+	private String ComprueboNombre() {
+		if (nombreTexto.getText().length() < 3 || nombreTexto.getText().length() > 15) {
+			avisoTexto.setText("Nombre inválido");
+			avisoTexto.setVisible(true);
+			avisoTexto.setForeground(Color.red);
+			return null;
+		}
+		String nombretextoEmpl = nombreTexto.getText();
+		return nombretextoEmpl;
+	}
+
+	private void Menu(ActionEvent e) {
+		if(e.getSource() == mi1) 
+		{
+			JOptionPane.showMessageDialog(this, "Estas en ya en el Menu Seleccionado", "Error",
+					JOptionPane.WARNING_MESSAGE);
+		}
+		
 		if(e.getSource() == m2) 
 		{
 			JFrame enseñoEmpleado = new EnseñoEmpleados();
@@ -221,12 +293,16 @@ public class ElijoEmpleado extends JFrame implements ActionListener, ItemListene
 		}
 		if(e.getSource() == m3) 
 		{
-			
+			JFrame loExporto = new LoExporto();
+			loExporto.setVisible(true);
+			dispose();
 		}
 	}
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 
+		
+		
 	}
 }

@@ -8,8 +8,11 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import DesarrolloDeInterfaces.Swing.Ejercicio1.LoExporto;
 
 
 
@@ -64,11 +67,27 @@ public class Menu extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		Menu(e);
+	}
+	private void Menu(ActionEvent e) {
 		if(e.getSource() == mi1) 
 		{
 			JFrame elijoEmpleado = new ElijoEmpleado();
 			elijoEmpleado.setVisible(true);
 			dispose(); 
+		}
+		
+		if(e.getSource() == m2) 
+		{
+			JFrame enseñoEmpleado = new EnseñoEmpleados();
+			enseñoEmpleado.setVisible(true);
+			dispose();   
+		}
+		if(e.getSource() == m3) 
+		{
+			JFrame loExporto = new LoExporto();
+			loExporto.setVisible(true);
+			dispose();
 		}
 	}
 
