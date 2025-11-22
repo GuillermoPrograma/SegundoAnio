@@ -1,0 +1,2 @@
+Empleadostxt :
+Empleado [genero=Masculino, otrosIngresos=200				, pueblo=Villalba, nombre=GUille, apellidos=garcia, pagoSeguridadSocial=200.0, irpf=200.0, salario=2000.0]
