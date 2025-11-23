@@ -13,9 +13,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
-import DesarrolloDeInterfaces.Swing.Ejercicio1.LoExporto;
-
 import javax.swing.JTable;
 
 public class EnseñoEmpleados extends JFrame implements ActionListener {

@@ -1,7 +1,10 @@
 package DesarrolloDeInterfaces.Swing.EjemploExamen;
 
-public class Empleado {
+import java.io.Serializable;
 
+public class Empleado implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 String genero, otrosIngresos, pueblo, nombre, apellidos ;
 Double pagoSeguridadSocial,irpf,salario;
 

@@ -12,8 +12,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import DesarrolloDeInterfaces.Swing.Ejercicio1.LoExporto;
-
 
 
 public class Menu extends JFrame implements ActionListener {

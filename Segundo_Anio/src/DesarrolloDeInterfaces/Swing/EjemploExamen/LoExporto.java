@@ -1,16 +1,12 @@
-package DesarrolloDeInterfaces.Swing.Ejercicio1;
+package DesarrolloDeInterfaces.Swing.EjemploExamen;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import DesarrolloDeInterfaces.Swing.EjemploExamen.ElijoEmpleado;
-import DesarrolloDeInterfaces.Swing.EjemploExamen.Empleado;
-import DesarrolloDeInterfaces.Swing.EjemploExamen.EnseñoEmpleados;
-import DesarrolloDeInterfaces.Swing.EjemploExamen.MetodosComun;
-
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -28,7 +24,15 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.List;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 public class LoExporto extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -113,7 +117,9 @@ public class LoExporto extends JFrame implements ActionListener {
 		Menu(e);
 		if(e.getSource() == botonXML) 
 		{
-			
+				generarXML();
+				
+		
 		}
 		if(e.getSource() == botontxt) 
 		{
@@ -145,15 +151,80 @@ public class LoExporto extends JFrame implements ActionListener {
 		}
 		
 	}
+
+
+	
+
+	    public void generarXML() {
+	        try {
+	            // 1. Crear el builder
+	            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	            DocumentBuilder builder = factory.newDocumentBuilder();
+	            Document doc = builder.newDocument();
+
+	            // 2. Crear nodo raíz
+	            Element root = doc.createElement("empleados");
+	            doc.appendChild(root);
+
+	            // 3. Crear elementos por cada empleado
+	            for (Empleado emp : empleadosLista) {
+	                Element empleado = doc.createElement("empleado");
+	                root.appendChild(empleado);
+
+	                Element nombre = doc.createElement("nombre");
+	                nombre.setTextContent(emp.getNombre());
+	                empleado.appendChild(nombre);
+
+	                Element apellidos = doc.createElement("apellidos");
+	                apellidos.setTextContent(emp.getApellidos());
+	                empleado.appendChild(apellidos);
+
+	                Element pueblo = doc.createElement("pueblo");
+	                pueblo.setTextContent(emp.getPueblo());
+	                empleado.appendChild(pueblo);
+
+	                Element genero = doc.createElement("genero");
+	                genero.setTextContent(emp.getGenero());
+	                empleado.appendChild(genero);
+
+	                Element otrosIngresos = doc.createElement("otrosIngresos");
+	                otrosIngresos.setTextContent(emp.getOtrosIngresos());
+	                empleado.appendChild(otrosIngresos);
+
+	                Element seguridadSocial = doc.createElement("pagoSeguridadSocial");
+	                seguridadSocial.setTextContent(emp.getPagoSeguridadSocial().toString());
+	                empleado.appendChild(seguridadSocial);
+
+	                Element irpf = doc.createElement("irpf");
+	                irpf.setTextContent(emp.getIrpf().toString());
+	                empleado.appendChild(irpf);
+
+	                Element salario = doc.createElement("salario");
+	                salario.setTextContent(emp.getSalario().toString());
+	                empleado.appendChild(salario);
+	            }
+
+	            // 4. Guardar el XML en archivo
+	            TransformerFactory tf = TransformerFactory.newInstance();
+	            Transformer transformer = tf.newTransformer();
+	            DOMSource source = new DOMSource(doc);
+	            StreamResult result = new StreamResult(new File("empleados.xml"));
+
+	            transformer.transform(source, result);
+
+	            System.out.println("XML generado correctamente.");
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+
 	public void LoExportoaBinario() 
 	{
 		 File f = new File("Empleado.dat");
 		try(FileOutputStream fo = new FileOutputStream(f);ObjectOutputStream salidaDatos = new ObjectOutputStream (fo);)
 		{
-			for(Empleado e: empleadosLista) 
-			{
-				salidaDatos.writeObject(e);
-			}
+			salidaDatos.writeObject(empleadosLista);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
