@@ -41,7 +41,7 @@ public class LoExporto extends JFrame implements ActionListener {
 	private List<Empleado> empleadosLista = MetodosComun.listaEmpleados;
 	private JMenuBar mb;
 	private JMenu menu1;
-	private JMenuItem mi1,m2,m3,m4;
+	private JMenuItem mi1,m2,m3;
 	private JButton botonBinario;
 	private JButton botontxt;
 	private JButton botonXML;

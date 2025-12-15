@@ -27,18 +27,17 @@ public static void main(String[] args) throws FileNotFoundException {
 
 	File f = new File(direccion +"\\" + nombre + ".dat");
 	
-	FileOutputStream salida = new FileOutputStream(f);
-	try {
+	
+	try(FileOutputStream salida = new FileOutputStream(f);ObjectOutputStream salidaDatos = new ObjectOutputStream (salida)) {
 		
-		ObjectOutputStream salidaDatos = new ObjectOutputStream (salida);
+		
 		for (int i = 0; i < alumnos.length; i++) 
 		{
 			AlumnoEj5 a = alumnos [i];
 			salidaDatos.writeObject(a);
 			
 		}
-		salidaDatos.close();
-		entrada.close();
+		
 		
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
