@@ -1,2 +1,3 @@
 Empleadostxt :
-Empleado [genero=Masculino, otrosIngresos=200				, pueblo=Villalba, nombre=GUille, apellidos=garcia, pagoSeguridadSocial=200.0, irpf=200.0, salario=2000.0]
+Empleado [genero=Masculino, otrosIngresos=Otros, pueblo=Villalba, nombre=Guille, apellidos=Garcia, pagoSeguridadSocial=200.0, irpf=200.0, salario=200.0]
+Empleado [genero=Masculino, otrosIngresos=, pueblo=Villalba, nombre=Dani, apellidos=EEEREE, pagoSeguridadSocial=200.0, irpf=200.0, salario=200.0]

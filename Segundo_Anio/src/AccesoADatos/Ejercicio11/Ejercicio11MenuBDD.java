@@ -252,6 +252,7 @@ public class Ejercicio11MenuBDD {
 
 			List<Map<String, Object>> alumnosLista = new ArrayList<>();
 			while (rs.next()) {
+				
 				Map<String, Object> alumno = new HashMap<>();
 				alumno.put("Nia", rs.getInt("Nia"));
 				alumno.put("Nombre", rs.getString("Nombre"));

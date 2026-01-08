@@ -35,12 +35,10 @@ public class AlumnoABinario {
 
 		File f = new File(direccion +"\\" + nombre + ".dat"); // Puede fallar
 
-		FileOutputStream salida = new FileOutputStream(f);
+		
 
-		DataOutputStream salidaDatos = null;
-
-		try {
-			salidaDatos = new DataOutputStream(salida);
+		try(FileOutputStream salida = new FileOutputStream(f);DataOutputStream salidaDatos = new DataOutputStream(salida)) {
+	
 			for (int i = 0; i < alumnos.length; i++) {
 				Alumno a = alumnos[i];
 
@@ -52,9 +50,9 @@ public class AlumnoABinario {
 				salidaDatos.writeUTF(a.getCiclo());
 				salidaDatos.writeUTF(a.getCurso());
 				salidaDatos.writeUTF(a.getGrupo());
-				salidaDatos.flush();
+				
 			}
-			salidaDatos.close();
+			
 		}
 
 		catch (Exception e) {
