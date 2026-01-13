@@ -2,7 +2,7 @@ package ProgramacionServiciosProcesos.MultiHilos.Coordinados.ClienteProductos;
 
 public class Tienda {
 
-int productos = 100;
+static int productos = 100;
 
 public synchronized boolean CojoProducto() //Habia que hacer syncronized para que funcionase
 {
