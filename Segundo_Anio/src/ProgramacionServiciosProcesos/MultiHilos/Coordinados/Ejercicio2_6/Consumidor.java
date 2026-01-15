@@ -25,11 +25,7 @@ public class Consumidor {
 					e.printStackTrace();
 				}
 				
-			while() 
-			{
-				
-				
-			}	
+		
 				
 					
 				
