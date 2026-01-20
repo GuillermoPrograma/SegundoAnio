@@ -10,6 +10,11 @@ import java.time.format.DateTimeFormatter;
 public class Productor extends Thread {
 
 	File f;
+	
+	Productor(File f)
+	{
+		this.f = f;
+	}
 
 	public void run() 
 	{
@@ -26,7 +31,7 @@ public class Productor extends Thread {
 				
 				pw.flush();
 				
-				f.notify();
+				f.notifyAll();
 				
 				try {
 					f.wait();

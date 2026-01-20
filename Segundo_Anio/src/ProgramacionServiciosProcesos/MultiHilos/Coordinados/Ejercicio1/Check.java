@@ -7,6 +7,8 @@ public class Check {
 	
 	public static void main(String[] args) {
 		
+		
+		
 		File f = new File("NúmerosCheck.txt");
 		Object obj = new Object();
 		HiloEscritor he = new HiloEscritor(f,obj);

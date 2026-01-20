@@ -17,13 +17,11 @@ public class Consumidor {
 	public void run() {
 		synchronized (f) {
 			try (FileReader pr = new FileReader(f); BufferedReader br = new BufferedReader(pr)) {
+				String linea;
 				
-				try {
-					f.wait();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				while((linea = br.readLine()) != null)
+					System.out.println(linea);
+				f.notifyAll();
 				
 		
 				
