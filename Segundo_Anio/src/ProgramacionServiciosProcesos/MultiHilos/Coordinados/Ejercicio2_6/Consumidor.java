@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Consumidor {
+public class Consumidor extends Thread {
 
 	File f;
 
@@ -16,24 +16,35 @@ public class Consumidor {
 
 	public void run() {
 		synchronized (f) {
-			try (FileReader pr = new FileReader(f); BufferedReader br = new BufferedReader(pr)) {
-				String linea;
-				
-				while((linea = br.readLine()) != null)
-					System.out.println(linea);
+			LeoInforme();
+		}
+	}
+
+	private synchronized void LeoInforme() {
+		try (FileReader pr = new FileReader(f); BufferedReader br = new BufferedReader(pr)) {
+			String linea;
+
+			int contador = 0;
+			while (contador < 5) {
+
+				contador++;
+				linea = br.readLine();
+				System.out.println(linea);
 				f.notifyAll();
-				
-		
-				
-					
-				
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				try {
+					f.wait();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
