@@ -149,20 +149,19 @@ public class Entrega1 extends JFrame implements ActionListener, ItemListener, Ch
 			asuntoWarning.setForeground(Color.red);
 			asuntoWarning.setVisible(false);
 			hayotro = false;
-				for (int i = 0; i < modeloLista.getSize(); i++) {
-				    if (textoAsunto.getText().equals(modeloLista.getElementAt(i).getAsunto())) {
-				        hayotro = true;
-				        break;
-				    }
+			for (int i = 0; i < modeloLista.getSize(); i++) {
+				if (textoAsunto.getText().equals(modeloLista.getElementAt(i).getAsunto())) {
+					hayotro = true;
+					break;
 				}
-				
-				if (hayotro) {
-				    asuntoWarning.setText("Hay otro archivo creado");
-				    asuntoWarning.setVisible(true);
-				    return;
-				} 
 			}
-			
+
+			if (hayotro) {
+				asuntoWarning.setText("Hay otro archivo creado");
+				asuntoWarning.setVisible(true);
+				return;
+			}
+
 			if (textoAsunto.getText().length() < 10 && textoAsunto.getText().length() > 1) {
 				asuntoCorrecto = textoAsunto.getText();
 				asuntoWarning.setVisible(false);
@@ -173,7 +172,7 @@ public class Entrega1 extends JFrame implements ActionListener, ItemListener, Ch
 			}
 			if ((int) año.getValue() >= 2020) {
 				añodefinitivo = (Integer) año.getValue();
-				
+
 				mesDefintivo = (int) mes.getValue();
 				int d = (int) dia.getValue();
 				switch (mesDefintivo) {
@@ -187,9 +186,7 @@ public class Entrega1 extends JFrame implements ActionListener, ItemListener, Ch
 					if (d <= 31) {
 						diaDefinitivo = d;
 						diaCorrecto = true;
-					}
-					else 
-					{
+					} else {
 						asuntoWarning.setText("dia Inválido");
 						asuntoWarning.setVisible(true);
 						diaCorrecto = false;
@@ -202,9 +199,7 @@ public class Entrega1 extends JFrame implements ActionListener, ItemListener, Ch
 				case 11: // Noviembre
 					if (d <= 30) {
 						diaDefinitivo = d;
-					}
-					else 
-					{
+					} else {
 						asuntoWarning.setText("dia Inválido");
 						asuntoWarning.setVisible(true);
 						diaCorrecto = false;
@@ -213,11 +208,9 @@ public class Entrega1 extends JFrame implements ActionListener, ItemListener, Ch
 
 				case 2: // Febrero
 					if (d <= 28) {
-						
+
 						diaDefinitivo = d;
-					}
-					else 
-					{
+					} else {
 						asuntoWarning.setText("dia Inválido");
 						asuntoWarning.setVisible(true);
 						diaCorrecto = false;
@@ -244,8 +237,7 @@ public class Entrega1 extends JFrame implements ActionListener, ItemListener, Ch
 				asuntoWarning.setVisible(true);
 				return;
 			}
-			if(diaCorrecto == true && hayotro == false) 
-			{
+			if (diaCorrecto == true && hayotro == false) {
 				Factura f = new Factura(asuntoCorrecto, diaDefinitivo, mesDefintivo, añodefinitivo, cantidadDefinitivo,
 						comboBox.getSelectedItem().toString());
 				modeloLista.addElement(f);
@@ -259,13 +251,12 @@ public class Entrega1 extends JFrame implements ActionListener, ItemListener, Ch
 				asuntoWarning.setForeground(Color.blue);
 				asuntoWarning.setVisible(true);
 			}
-			
-		
-		if (e.getSource() == editar) 
-		{
+		}
+
+		if (e.getSource() == editar) {
 			int index = nombreLista.getSelectedIndex();
-			
-			Factura vuelve =nombreLista.getModel().getElementAt(index);
+
+			Factura vuelve = nombreLista.getModel().getElementAt(index);
 			textoAsunto.setText(vuelve.getAsunto());
 			año.setValue(vuelve.getAño());
 			mes.setValue(vuelve.getMes());
@@ -273,14 +264,12 @@ public class Entrega1 extends JFrame implements ActionListener, ItemListener, Ch
 			cantidad.setText(Double.toString(vuelve.getCantidad()));
 			modeloLista.remove(index);
 		}
-		if (e.getSource() == eliminar) 
-		{
+		if (e.getSource() == eliminar) {
+			System.out.println("paso");
 			int index = nombreLista.getSelectedIndex();
-			
-			
+
 			modeloLista.remove(index);
 		}
-		
 
 	}
 
