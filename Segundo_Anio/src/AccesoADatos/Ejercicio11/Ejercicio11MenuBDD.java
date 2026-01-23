@@ -50,8 +50,7 @@ public class Ejercicio11MenuBDD {
 					+ "8- Guardar todos los alumnos en un fichero XML o JSON.\r\n" + "\n"
 					+ "9- Leer un fichero XML o JSON de alumnos (con en formato anterior) y guardarlos en la BD."
 					+ "\n");
-			
-			
+
 			int numEleg = entrada.nextInt();
 			switch (numEleg) {
 			case (1):
@@ -96,6 +95,71 @@ public class Ejercicio11MenuBDD {
 		}
 	}
 
+	private static void crearGrupo() {
+		Scanner entrada = new Scanner(System.in);
+		System.out.println("Nombre del grupo:");
+		String nombre = entrada.nextLine().trim();
+
+		String sql = "INSERT INTO grupo VALUES(?, ?)";
+		try (Connection conexion = ConexionBDD();
+				PreparedStatement ps = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+			// id es autoincrement
+			ps.setString(1, nombre);
+			ps.executeUpdate();
+			ResultSet rs = ps.getGeneratedKeys();
+			if (rs.next()) {
+				int idGrupo = rs.getInt(1);
+				System.out.println("Grupo creado con id: " + idGrupo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void asignarAlumnoAGrupo(int nia, int idGrupo) {
+		String sql = "INSERT INTO alumnos_grupos(Nia, idGrupo) VALUES (?, ?)";
+		try (Connection conexion = ConexionBDD(); PreparedStatement ps = conexion.prepareStatement(sql)) {
+			ps.setInt(1, nia);
+			ps.setInt(2, idGrupo);
+			ps.executeUpdate();
+			System.out.println("Alumno " + nia + " asignado al grupo " + idGrupo);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void mostrarAlumnosConGrupos() {
+		String sql = "SELECT a.Nia, a.Nombre, a.Apellidos, g.nombreGrupo " + "FROM alumnos a "
+				+ "LEFT JOIN alumnos_grupos ag ON a.Nia = ag.Nia " + // consulta chatgpt, no recodaba los joins y
+																		// consultas n m
+				"LEFT JOIN grupos g ON ag.idGrupo = g.idGrupo " + "ORDER BY a.Nia";
+
+		try (Connection conexion = ConexionBDD();
+				PreparedStatement ps = conexion.prepareStatement(sql);
+				ResultSet rs = ps.executeQuery()) {
+
+			System.out.println("Listado de alumnos con sus grupos:");
+
+			while (rs.next()) {
+				int nia = rs.getInt("Nia");
+				System.out
+						.println("\nAlumno: " + nia + " - " + rs.getString("Nombre") + " " + rs.getString("Apellidos"));
+
+				String grupo = rs.getString("nombreGrupo"); // lo coge del grupo con el left join, acuerdate
+				System.out.print("Grupo: ");
+				if (grupo != null) {
+					System.out.print(grupo);
+				} else {
+					System.out.print("Ninguno");
+				}
+				System.out.println();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	private static void eliminoPorApellido(String apellido) {
 		String sql = "Delete from alumnosEjercicio11 where Apellidos Like ?";
 		try (Connection conexion = ConexionBDD(); PreparedStatement ps = conexion.prepareStatement(sql)) {
@@ -127,8 +191,9 @@ public class Ejercicio11MenuBDD {
 	private static void ModificoNombre(int nia) {
 		String sql = "Update alumnosEjercicio11 set Nombre=? where Nia=?";
 
-		try (Connection conexion = ConexionBDD(); PreparedStatement ps = conexion.prepareStatement(sql);Scanner entrada = new Scanner(System.in);) {
-			
+		try (Connection conexion = ConexionBDD();
+				PreparedStatement ps = conexion.prepareStatement(sql);
+				Scanner entrada = new Scanner(System.in);) {
 
 			System.out.println("Dime a que nombre quieres cambiar");
 			String nombre = entrada.nextLine();
@@ -147,7 +212,7 @@ public class Ejercicio11MenuBDD {
 	private static Connection ConexionBDD() {
 		// Cargar el driver
 		try {
-			
+
 			return DriverManager.getConnection("jdbc:mysql://localhost/ejercicio11", "root", "Manager");
 
 		} catch (Exception e) {
@@ -244,6 +309,52 @@ public class Ejercicio11MenuBDD {
 
 	}
 
+	private static void guardarGruposJSON() {
+		String sql = "SELECT g.idGrupo, g.nombreGrupo, a.Nia, a.Nombre, a.Apellidos, a.Genero, a.Fecha, a.Ciclo, a.Curso, a.Grupo FROM grupos g LEFT JOIN alumnos_grupos ag ON g.idGrupo = ag.idGrupo LEFT JOIN alumnos a ON ag.Nia = a.Nia";
+
+		try (Connection conexion = ConexionBDD();
+				PreparedStatement ps = conexion.prepareStatement(sql);
+				ResultSet rs = ps.executeQuery()) {
+			Map<Integer, GrupoEjercicio12> mapaGrupos = new HashMap<>();
+
+			while (rs.next()) {
+				int idGrupo = rs.getInt("idGrupo");
+				GrupoEjercicio12 grupo = mapaGrupos.getOrDefault(idGrupo,
+						new GrupoEjercicio12(idGrupo, rs.getString("nombreGrupo"))); // aqui miramos si ya tenemos un
+																						// mapa del grupo
+
+				int nia = rs.getInt("Nia");
+				if (nia != 0) {
+					char genero = rs.getString("Genero").charAt(0);
+					String fecha = rs.getDate("Fecha").toString();
+					String ciclo = rs.getString("Ciclo");
+					String curso = rs.getString("Curso");
+					String grupoAlumno = rs.getString("Grupo");
+
+					AlumnoEjercicio11 alumno = new AlumnoEjercicio11(nia, rs.getString("Nombre"),
+							rs.getString("Apellidos"), genero, fecha, ciclo, curso, grupoAlumno);
+
+					grupo.agregarAlumno(alumno); // esto me parece un lio después de haber visto hibernate pero bueno,
+													// más que nada porque a la minima no hay cohesion entre la bbdd y
+													// la aplicacion
+				}
+
+				mapaGrupos.put(idGrupo, grupo);
+			}
+
+			Gson gson = new Gson();
+			try (FileWriter writer = new FileWriter("grupos.json")) {
+				gson.toJson(mapaGrupos.values(), writer);
+				System.out.println("Archivo grupos.json creado correctamente.");
+			}
+
+		} catch (SQLException |
+
+				IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private static void BuscoAlumnoParaJson() {
 		String sql = "select Nia,Nombre,Apellidos,Genero,Fecha,Ciclo,Curso,Grupo from alumnosejercicio11";
 		try (Connection conexion = ConexionBDD();
@@ -252,7 +363,7 @@ public class Ejercicio11MenuBDD {
 
 			List<Map<String, Object>> alumnosLista = new ArrayList<>();
 			while (rs.next()) {
-				
+
 				Map<String, Object> alumno = new HashMap<>();
 				alumno.put("Nia", rs.getInt("Nia"));
 				alumno.put("Nombre", rs.getString("Nombre"));

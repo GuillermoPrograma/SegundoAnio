@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class AlumnoEjercicio11 implements Serializable{
@@ -24,6 +26,10 @@ public class AlumnoEjercicio11 implements Serializable{
 	private static final DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	private LocalDate fecha;
+	
+	private List<GrupoEjercicio12> grupos;
+
+	
 
 	public AlumnoEjercicio11(int nia, String nombre, String apellidos, char genero, String fecha_Nac, String ciclo,
 			String curso, String grupo)
@@ -81,6 +87,17 @@ public class AlumnoEjercicio11 implements Serializable{
 
 		}
 
+	}
+	
+	public void agregarGrupo(GrupoEjercicio12 g) {
+	    if (this.grupos == null) 
+	    	this.grupos = new ArrayList<>();
+	    
+	    grupos.add(g);
+	}
+
+	public List<GrupoEjercicio12> getGrupos() {
+	    return grupos;
 	}
 
 	public int getNia() {
