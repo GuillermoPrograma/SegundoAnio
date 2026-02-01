@@ -14,22 +14,25 @@ public class Cliente {
 	public static void main(String[] args) throws UnknownHostException, IOException {
 		Scanner entrada = new Scanner(System.in);
 		String host = "localhost";
-		int puerto = 6000;//puerto remoto
+		int puerto = 6000;// puerto remoto
 		System.out.println("PROGRAMA CLIENTE INICIADO....");
-		Socket cliente = new Socket(host,puerto);
-		
+		Socket cliente = new Socket(host, puerto);
+
 		System.out.println("dime texto");
 		String texto = entrada.nextLine();
-		
-		try(PrintWriter pw = new PrintWriter (cliente.getOutputStream()))
-		{
+
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
+	        PrintWriter pw = new PrintWriter(cliente.getOutputStream(), true)) {
+			//importante meter en el mismo try el bufferedreader y el printwriter porque sino se cierra el servidor
 			pw.println(texto);
-		}
-		
-		try(BufferedReader br = new BufferedReader (new InputStreamReader(cliente.getInputStream())))
-		{
+			pw.flush();
 			
-		}
+			
+			String linea;
+			if ((linea = br.readLine()) != null) {
+				System.out.println(linea);
+			}
 		
+		}
 	}
 }
