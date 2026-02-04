@@ -16,12 +16,6 @@ public static void main(String[] args) {
 			
 			
 			he.start();
-			
 			hl.start();
-			
-			
-			
-		
-		
 	}
 }

@@ -25,11 +25,11 @@ public class Productor extends Thread {
 				LocalDateTime ahora = LocalDateTime.now();
 
 				DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-
+				System.out.println("contador " + contador);
 				pw.print(ahora.format(formato));
 
 				pw.flush();
-				Thread.sleep(1000);
+				Thread.sleep(50);
 				f.notifyAll();
 				
 

@@ -12,7 +12,10 @@ public class Receptor {
 		DatagramPacket recibido = new DatagramPacket(buffer,buffer.length);
 		System.out.println("esperando paquete");
 		socket.receive(recibido);
-		String mensaje = new String (recibo.)
+		int bytesRec = recibido.getLength();
+		String mensaje = new String (recibido.getData(),0,bytesRec);
+		System.out.println(mensaje);
+		socket.close();
 		
 	}
 }

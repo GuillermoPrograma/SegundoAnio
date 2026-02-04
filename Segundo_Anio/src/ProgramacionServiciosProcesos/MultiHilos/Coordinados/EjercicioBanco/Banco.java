@@ -23,7 +23,6 @@ public static void main(String[] args) throws InterruptedException {
 		Proceso p3 = new Proceso (true,50,c1);
 		Proceso p4 = new Proceso (false,50,c1);
 		p3.start();
-		
 		p4.start();
 		
 	}
@@ -33,6 +32,7 @@ public static void main(String[] args) throws InterruptedException {
 		Proceso p6 = new Proceso (false,20,c1);
 		p5.start();
 		p6.start();
+		
 	}
 	
 	
